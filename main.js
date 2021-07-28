@@ -90,6 +90,20 @@ function startGame() {
     playGround.start();
 }
 
+function restartGame(){
+    playGround.stop();
+    plants = [];
+    sunFlowers = [];
+    walls = [];
+
+    zombies = [];
+    bullets = [];
+    money = [];
+    isSelected = false;
+    balance = 5000;
+    updateGame();
+}
+
 //Add new zombies at random Lines
 function newZombies() {
     let number = Math.floor(Math.random() * 5 + 0)
