@@ -30,7 +30,8 @@ class Zombie {
     // }
 
     dead(id) {
-        zombies.splice(id, 1)
+        zombies.splice(id, 1);
+        scores++;
     }
 
     checkStatus(id) {
@@ -64,6 +65,13 @@ class Zombie {
         }
     }
 
+    checkIfInHouse(){
+        if (this.x < houseLine){
+            if (!alert('Your brain are gone. Game over')) {
+                playGround.stop();
+            }
+        }
+    }
     // detectObject(){
     //     for (let i = 0; i < walls.length; i++) {
     //         if(this.x > walls[i].x && this. x < walls[i].x + walls[i].width && this.y == walls[i].y && walls[i].hp > 1) {

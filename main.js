@@ -1,6 +1,8 @@
 let canvas = document.getElementById("canvas")
 let ctx = canvas.getContext("2d");
+let houseLine = 260;
 let balance = 5000;
+let scores = 0;
 
 let myPlayGround = new Image();
 myPlayGround.src = "img/backGround1.jpg"
@@ -17,6 +19,7 @@ let bullets = [];
 let money = [];
 
 let selected;
+let previousSelected;
 let isPlantSelected = false;
 
 let isRemoveSelected = false;
@@ -55,9 +58,10 @@ let playGround = {
 
 function updateGame() {
 
-    document.getElementById("balance").innerText = balance;
+
     playGround.clear();
     playGround.drawBackground();
+    updateBalance();
     checkZombiesHits();
 
     for (let i = 0; i < bullets.length; i++) {
@@ -72,6 +76,7 @@ function updateGame() {
     for (let i = 0; i < zombies.length; i++) {
         zombies[i].x -= zombies[i].speed;
         zombies[i].update();
+        zombies[i].checkIfInHouse();
     }
 
     for (let i = 0; i < sunFlowers.length; i++) {
@@ -98,15 +103,23 @@ function restartGame(){
     plants = [];
     sunFlowers = [];
     walls = [];
-
+    defenders = [plants, sunFlowers, walls]
+    for (let i = 0; i < zones.length; i++) {
+        zones[i].available = true;
+    }
     zombies = [];
     bullets = [];
     money = [];
-    isSelected = false;
+    isPlantSelected = false;
+    isRemoveSelected = false;
     balance = 5000;
+    restartCooldown();
     updateGame();
 }
 
+function updateBalance(){
+    document.getElementById("balance").innerText = 'Current suns: ' + balance;
+}
 //Add new zombies at random Lines
 function newZombies() {
     let number = Math.floor(Math.random() * 5 + 0)
@@ -116,7 +129,8 @@ function newZombies() {
 //Place Defenders
 function changeSelected(id) {
     selected = id;
-    if (isPlantSelected) {
+    previousSelected = id
+    if (isPlantSelected && id == previousSelected) {
         isPlantSelected = false;
     } else if(isPlantSelected == false){
         isPlantSelected = true;
@@ -141,7 +155,7 @@ canvas.addEventListener('click', function (e) {
                 switch (selected) {
                     case 0:
                         if (balance >= 100 && !isCooldown0) {
-                            plants.push(new Plant(zones[i].x + 15, zones[i].y, i));
+                            plants.push(new Plant(zones[i].x + 15, zones[i].y, i, 1));
                             balance -= 100;
                             zones[i].available = false;
                             isCooldown0 = true;
@@ -157,7 +171,7 @@ canvas.addEventListener('click', function (e) {
                             currentCooldown1 = cooldown1Max;
                         }
                         break;
-                    case 2:
+                    case 3:
                         if (balance >= 50 && !isCooldown2) {
                             walls.push(new Wall(zones[i].x + 15, zones[i].y, i));
                             balance -= 50;
@@ -165,6 +179,14 @@ canvas.addEventListener('click', function (e) {
                             isCooldown2 = true;
                             currentCooldown2 = cooldown2Max;
                         }
+                        break;
+                    case 2:
+                        if (balance >= 100) {
+                            plants.push(new Plant(zones[i].x + 15, zones[i].y, i, 2));
+                            balance -=100;
+                            zones[i].available = false;
+                        }
+                        break;
                 }
                 isPlantSelected = false;
 
@@ -238,8 +260,10 @@ function checkZombiesHits() {
 
 //SunFlowers function
 function generateSun() {
-    let number = Math.floor(Math.random() * sunFlowers.length + 0)
-    sunFlowers[number].generateSun();
+    if (sunFlowers.length > 0) {
+        let number = Math.floor(Math.random() * sunFlowers.length + 0)
+        sunFlowers[number].generateSun();
+    }
 }
 
 function collectSun() {
@@ -257,3 +281,4 @@ function zombieAttack() {
 canvas.addEventListener('click', function (e) {
     console.log('clicked' + e.offsetX + '/' + e.offsetY)
 })
+
