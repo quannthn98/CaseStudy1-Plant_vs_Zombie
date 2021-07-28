@@ -9,24 +9,19 @@ class Plant {
     zoneId;
     shootCount;
 
-    constructor(x, y, zoneId, level) {
-        this.x = x;
-        this.y = y;
+    constructor(zone, zoneId) {
+        this.x = zone.x + 15;
+        this.y = zone.y;
         this.zoneId = zoneId;
         this.width = 50;
-        this.height = 70;
+        this.height = 69;
         this.cost = 100;
         this.hp = 1000;
-        this.level = level;
         this.shootCount = 0;
     }
 
     update() {
-        if (this.level == 1) {
-            ctx.drawImage(plant1, this.x, this.y, 50, this.height);
-        } else {
-            ctx.drawImage(plant2, this.x, this.y, 55, this.height);
-        }
+            ctx.drawImage(plant1, this.x, this.y, this.width, this.height);
     }
 
     checkStatus(id) {

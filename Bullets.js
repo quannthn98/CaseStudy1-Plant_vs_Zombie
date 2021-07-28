@@ -1,5 +1,5 @@
 let bullet = new Image();
-bullet.src = "img/bullet.png"
+bullet.src = "img/bullet1.png"
 
 class Bullets {
     width;
@@ -9,8 +9,8 @@ class Bullets {
     speed;
 
     constructor(x, y) {
-        this.width = 20;
-        this.height = 20;
+        this.width = 35;
+        this.height = 35;
         this.x = x;
         this.y = y;
         this.speed = 6;

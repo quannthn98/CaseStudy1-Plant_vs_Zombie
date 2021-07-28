@@ -7,9 +7,9 @@ class SunFlower {
     hp;
     zoneId;
 
-    constructor(x, y, zoneId) {
-        this.x = x;
-        this.y = y;
+    constructor(zone, zoneId) {
+        this.x = zone.x + 15;
+        this.y = zone.y;
         this.zoneId = zoneId;
         this.width = 50;
         this.height = 65;

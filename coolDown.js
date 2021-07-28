@@ -1,71 +1,70 @@
-let cooldown0Max = 8;
-let currentCooldown0 = 0;
+let cooldownShooterMax = 5;
+let currentCooldownShooter = 0;
 
-let cooldown1Max = 5;
-let currentCooldown1 = 0;
+let cooldownSunFlowerMax = 5;
+let currentCooldownSunFlower = 0;
 
-let cooldown2Max = 8;
-let currentCooldown2 = 0;
+let cooldownWallMax = 10;
+let currentCooldownWall = 0;
 
-let isCooldown0 = false;
-let isCooldown1 = false;
-let isCooldown2 = false;
+let cooldownCherryMax = 15;
+let currentCooldownCherry = 0;
 
-let coolDownTime = [currentCooldown0, currentCooldown1, currentCooldown2]
-let coolDownStatus = [isCooldown0, isCooldown1, isCooldown2]
-
-// function reduceCooldown() {
-//
-//     for (let i = 0; i < coolDownTime.length; i++) {
-//         if (coolDownTime[i] > 0) {
-//             coolDownTime[i]-=1;
-//         } else {
-//             coolDownTime[i] = 0;
-//             coolDownStatus[i] = false;
-//         }
-//     }
-//     coolDownTime = [currentCooldown0, currentCooldown1, currentCooldown2]
-//     coolDownStatus = [isCooldown0, isCooldown1, isCooldown2]
-// }
+let isCooldownShooter = false;
+let isCooldownSunFlower = false;
+let isCooldownWall = false;
+let isCooldownCherry = false;
 
 function reduceCooldown() {
-    if (currentCooldown0 > 0) {
-        currentCooldown0--;
-        console.log('Co the plant shooter sau ' + currentCooldown0)
-    } else {
-        console.log('can plant again')
-        currentCooldown0 = 0
-        isCooldown0 = false
-    }
-    if (currentCooldown1 > 0) {
-        currentCooldown1--;
-        console.log('Co the plant sunF sau ' + currentCooldown1)
-    } else {
-        currentCooldown1 = 0
-        isCooldown1 = false
 
-    }
-    if (currentCooldown2 > 0) {
-        currentCooldown2--;
-        console.log('Co the plant Walls sau ' + currentCooldown2)
+    if (currentCooldownShooter > 0) {
+        currentCooldownShooter--;
+        document.getElementById("shooter").innerText = currentCooldownShooter;
     } else {
-        currentCooldown2 = 0
-        isCooldown2 = false
+        currentCooldownShooter = 0
+        isCooldownShooter = false
+        document.getElementById("shooter").innerText = "Available"
+    }
+
+    if (currentCooldownSunFlower > 0) {
+        document.getElementById("sunflower").innerText =  currentCooldownSunFlower;
+        currentCooldownSunFlower--;
+    } else {
+        currentCooldownSunFlower = 0
+        isCooldownSunFlower = false
+        document.getElementById("sunflower").innerText = "Available"
+    }
+
+    if (currentCooldownWall > 0) {
+        document.getElementById("wall").innerText = currentCooldownWall;
+        currentCooldownWall--;
+    } else {
+        currentCooldownWall = 0
+        isCooldownWall = false
+        document.getElementById("wall").innerText = "Available"
+    }
+
+    if (currentCooldownCherry > 0) {
+        document.getElementById("cherry").innerText = currentCooldownCherry;
+        currentCooldownCherry--;
+    } else {
+        currentCooldownCherry = 0
+        isCooldownCherry = false
+        document.getElementById("cherry").innerText = "Available"
     }
 }
 
 function restartCooldown() {
-    cooldown0Max = 10;
-    currentCooldown0 = 0;
+    cooldownShooterMax = 5;
+    currentCooldownShooter = 0;
 
-    cooldown1Max = 10;
-    currentCooldown1 = 0;
+    cooldownSunFlowerMax = 5;
+    currentCooldownSunFlower = 0;
 
-    cooldown2Max = 10;
-    currentCooldown2 = 0;
+    cooldownWallMax = 10;
+    currentCooldownWall = 0;
 
-    isCooldown0 = false;
-    isCooldown1 = false;
-    isCooldown2 = false;
+    cooldownCherryMax = 15;
+    currentCooldownCherry = 0;
 }
 

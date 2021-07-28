@@ -14,18 +14,32 @@
 <button onclick="removePlants()">Remove Plants</button>
 <button onclick="collectSun()">Collect Sun</button>
 
-<p id="balance"></p>
-<button onclick="changeSelected(0) ">plant Shooter 1</button>
-<button onclick="changeSelected(1) ">plant SunFlower</button>
-<button onclick="changeSelected(2) ">plant Shooter 2</button>
-<button onclick="changeSelected(3) ">plant Potato</button>
-<!--<canvas id="canvas" width="1300" height="600"></canvas>-->
+<table border="1">
+    <tr>
+        <td> <img style="float: top" src="img/balance.png" alt="balance"></td>
+        <td onclick="changeSelected(0)"> <img src="img/plantCard.png" alt="plant"></td>
+        <td onclick="changeSelected(1)"> <img src="img/SunCard.png" alt="sun"></td>
+        <td onclick="changeSelected(2)"> <img src="img/wallCard.png" alt="cherry"></td>
+        <td onclick="changeSelected(3)"> <img src="img/cherryCard.png" alt="plant"></td>
+    </tr>
+    <tr>
+        <td id="balance" style="text-align: center; font-family: Arial; font-weight: bold"></td>
+        <td id="shooter" style="text-align: center"></td>
+        <td id="sunflower" style="text-align: center"></td>
+        <td id="wall" style="text-align: center"></td>
+        <td id="cherry" style="text-align: center"></td>
+    </tr>
+</table>
+
+
+
 <canvas id="canvas" width="1450" height="650"></canvas>
 
 <script src="zombie.js"></script>
 <script src="plant.js"></script>
 <script src="SunFlower.js"></script>
 <script src="Wall.js"></script>
+<script src="cherryBomb.js"></script>
 <script src="Bullets.js"></script>
 <script src="Line.js"></script>
 <script src="Zone.js"></script>
