@@ -10,11 +10,12 @@ class Plant {
     constructor(x, y, zoneId) {
         this.x = x;
         this.y = y;
+        this.zoneId = zoneId;
         this.width = 50;
         this.height = 65;
         this.cost = 100;
         this.hp = 10;
-        this.zoneId = zoneId;
+
     }
 
     update() {
@@ -47,6 +48,11 @@ class Plant {
         if (canShoot){
             this.shoot();
         }
+    }
+
+    remove(id){
+        plants.splice(id,1);
+        zones[this.zoneId].available = true;
     }
 
 

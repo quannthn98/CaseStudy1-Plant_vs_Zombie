@@ -32,7 +32,8 @@ let playGround = {
         this.intervalOfNewZombies = setInterval(newZombies, 5000); //Create new zombies every 5s
         this.intervalOfDetectZombies = setInterval(detectZombies, 1000); //Let Plant check and attack every 1s
         this.intevalOfGenerateSun = setInterval(generateSun, 3000); //Generate sun every 3s at random SunFlowers
-        this.intervalOfZombiesAttack = setInterval(zombieAttack, 500) //Let zombies check and attack every 0.5s
+        this.intervalOfZombiesAttack = setInterval(zombieAttack, 500); //Let zombies check and attack every 0.5s
+        this.intevalOfCooldown = setInterval(reduceCooldown, 1000);
     },
 
     drawBackground: function () {
@@ -139,25 +140,30 @@ canvas.addEventListener('click', function (e) {
             if (x > zones[i].x && x < zones[i].x + zones[i].width && y > zones[i].y && y < zones[i].y + zones[i].height && zones[i].available === true) {
                 switch (selected) {
                     case 0:
-                        if (balance >= 100) {
+                        if (balance >= 100 && !isCooldown0) {
                             plants.push(new Plant(zones[i].x + 15, zones[i].y, i));
                             balance -= 100;
                             zones[i].available = false;
-
+                            isCooldown0 = true;
+                            currentCooldown0 = cooldown0Max;
                         }
                         break;
                     case 1:
-                        if (balance >= 50) {
+                        if (balance >= 50 && !isCooldown1) {
                             sunFlowers.push(new SunFlower(zones[i].x + 15, zones[i].y, i));
                             balance -= 50;
                             zones[i].available = false;
+                            isCooldown1 = true;
+                            currentCooldown1 = cooldown1Max;
                         }
                         break;
                     case 2:
-                        if (balance >= 50) {
+                        if (balance >= 50 && !isCooldown2) {
                             walls.push(new Wall(zones[i].x + 15, zones[i].y, i));
                             balance -= 50;
                             zones[i].available = false;
+                            isCooldown2 = true;
+                            currentCooldown2 = cooldown2Max;
                         }
                 }
                 isPlantSelected = false;

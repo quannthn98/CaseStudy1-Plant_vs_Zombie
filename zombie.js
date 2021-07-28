@@ -49,7 +49,7 @@ class Zombie {
                 if (this.x > defenders[i][j].x && this.x < defenders[i][j].x + defenders[i][j].width && this.y == defenders[i][j].y && defenders[i][j].hp > 1) {
                     this.speed = 0;
                     this.attack(defenders[i][j])
-                    defenders[i][j].checkStatus();
+                    defenders[i][j].checkStatus(j);
 
                 } else if (defenders[i][j].hp == 1) {
                     for (let k = 0; k < zombies.length; k++) {

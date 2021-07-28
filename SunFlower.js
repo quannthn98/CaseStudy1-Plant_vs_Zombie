@@ -10,11 +10,12 @@ class SunFlower {
     constructor(x, y, zoneId) {
         this.x = x;
         this.y = y;
+        this.zoneId = zoneId;
         this.width = 50;
         this.height = 65;
         this.sun = 25
         this.hp = 5
-        this.zoneId = zoneId;
+
     }
 
     update() {
@@ -39,6 +40,10 @@ class SunFlower {
         }
     }
 
+    remove(id){
+        sunFlowers.splice(id,1);
+        zones[this.zoneId].available = true;
+    }
 
 }
 

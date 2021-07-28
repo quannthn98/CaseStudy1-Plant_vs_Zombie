@@ -9,10 +9,11 @@ class Wall {
     constructor(x, y, zoneId) {
         this.x = x;
         this.y = y;
+        this.zoneId = zoneId;
         this.width = 50;
         this.height = 65;
-        this.hp = 10;
-        this.zoneId = zoneId;
+        this.hp = 30;
+
     }
 
     update() {
@@ -29,6 +30,11 @@ class Wall {
         if (this.hp == 0) {
             this.dead(id);
         }
+    }
+
+    remove(id){
+        walls.splice(id,1);
+        zones[this.zoneId].available = true;
     }
 }
 
