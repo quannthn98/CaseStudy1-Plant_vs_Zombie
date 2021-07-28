@@ -17,7 +17,9 @@ let bullets = [];
 let money = [];
 
 let selected;
-let isSelected = false;
+let isPlantSelected = false;
+
+let isRemoveSelected = false;
 
 document.getElementById("balance").innerText = balance;
 
@@ -113,13 +115,26 @@ function newZombies() {
 //Place Defenders
 function changeSelected(id) {
     selected = id;
-    isSelected = true;
+    if (isPlantSelected) {
+        isPlantSelected = false;
+    } else if(isPlantSelected == false){
+        isPlantSelected = true;
+        isRemoveSelected = false;
+    }
+}
+function removePlants(){
+    if (isRemoveSelected) {
+        isRemoveSelected = false;
+    } else {
+        isRemoveSelected = true;
+        isPlantSelected = false;
+    }
 }
 
 canvas.addEventListener('click', function (e) {
     let x = e.offsetX;
     let y = e.offsetY;
-    if (isSelected) {
+    if (isPlantSelected) {
         for (let i = 0; i < zones.length; i++) {
             if (x > zones[i].x && x < zones[i].x + zones[i].width && y > zones[i].y && y < zones[i].y + zones[i].height && zones[i].available === true) {
                 switch (selected) {
@@ -128,6 +143,7 @@ canvas.addEventListener('click', function (e) {
                             plants.push(new Plant(zones[i].x + 15, zones[i].y, i));
                             balance -= 100;
                             zones[i].available = false;
+
                         }
                         break;
                     case 1:
@@ -144,13 +160,55 @@ canvas.addEventListener('click', function (e) {
                             zones[i].available = false;
                         }
                 }
-                isSelected = false;
+                isPlantSelected = false;
 
             }
         }
     }
 
+    else if (isRemoveSelected){
+        for (let i = 0; i < zones.length; i++) {
+            if(x > zones[i].x && x < zones[i].x + zones[i].width && y > zones[i].y && y < zones[i].y + zones[i].height){
+                for (let j = 0; j < defenders.length; j++) {
+                    for (let k = 0; k < defenders[j].length; k++) {
+                        if (defenders[j][k].zoneId == i){
+                            defenders[j][k].remove(k);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }, false)
+
+
+// Remove Planted plants
+// function removePlants(){
+//     if (isRemoveSelected) {
+//         isRemoveSelected = false;
+//     } else {
+//         isRemoveSelected = true;
+//     }
+// }
+
+// canvas.addEventListener('click', function (e){
+//     let x = e.offsetX;
+//     let y = e.offsetY;
+//     if (isRemoveSelected){
+//         for (let i = 0; i < zones[i].length; i++) {
+//             if (x > zones[i].x && x < zones[i].x + zones[i].width && y > zones[i].y && y < zones[i].y + zones[i].height && zones[i].available === false){
+//                 for (let j = 0; j < defenders.length; j++) {
+//                     for (let k = 0; k < defenders[j][k]; k++) {
+//                         if (defenders[j][k].zoneId == i){
+//                             defenders[j][k].remove(k);
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// })
 
 // Find zombies and attack
 function detectZombies() {
