@@ -6,11 +6,12 @@ class SunFlower {
     sun;
     hp;
     zoneId;
+
     constructor(x, y, zoneId) {
         this.x = x;
         this.y = y;
         this.width = 50;
-        this.height = 75;
+        this.height = 65;
         this.sun = 25
         this.hp = 5
         this.zoneId = zoneId;
@@ -28,7 +29,7 @@ class SunFlower {
     }
 
     dead(id) {
-        sunFlowers.splice(id,1);
+        sunFlowers.splice(id, 1);
         zones[this.zoneId].available = true;
     }
 
@@ -37,8 +38,6 @@ class SunFlower {
             this.dead(id);
         }
     }
-
-
 
 
 }

@@ -8,7 +8,7 @@ class Zone {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = 100;
+        this.width = 85;
         this.height = 100;
         this.available = true;
     }
@@ -22,15 +22,13 @@ class Zone {
 
 let zones = [];
 
-let x = 200;
+let x = 265;
 for (let i = 0; i < 9; i++) {
-    let y = 80
+    let y = 90
     for (let j = 0; j < 5; j++) {
-
         zones.push(new Zone(x, y));
-        y += 100;
+        y += 110;
     }
-
-    x += 100
+    x += 83
 }
 

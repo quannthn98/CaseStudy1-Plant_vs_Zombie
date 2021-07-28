@@ -3,16 +3,18 @@ let ctx = canvas.getContext("2d");
 let balance = 5000;
 
 let myPlayGround = new Image();
-myPlayGround.src = "img/backGround.jpg"
+myPlayGround.src = "img/backGround1.jpg"
+ctx.drawImage(myPlayGround, 0, 0, canvas.width, canvas.height);
 
 let plants = [];
-let zombies = [];
-let bullets = [];
 let sunFlowers = [];
-let money = [];
 let walls = [];
 
-let defenders = [plants,sunFlowers,walls]
+let defenders = [plants, sunFlowers, walls]
+
+let zombies = [];
+let bullets = [];
+let money = [];
 
 let selected;
 let isSelected = false;
@@ -24,15 +26,14 @@ let playGround = {
     height: canvas.height,
 
     start: function () {
-        this.intervalOfUpdate = setInterval(updateGame, 20);
-        this.intervalOfNewZombies = setInterval(newZombies, 5000);
-        this.intervalOfDetectZombies = setInterval(detectZombies, 1000);
-        this.intevalOfGenerateSun = setInterval(generateSun, 3000);
-        this.intervalOfZombiesAttack = setInterval(zombieAttack, 500)
+        this.intervalOfUpdate = setInterval(updateGame, 20); //Draw everything again after 20ms
+        this.intervalOfNewZombies = setInterval(newZombies, 5000); //Create new zombies every 5s
+        this.intervalOfDetectZombies = setInterval(detectZombies, 1000); //Let Plant check and attack every 1s
+        this.intevalOfGenerateSun = setInterval(generateSun, 3000); //Generate sun every 3s at random SunFlowers
+        this.intervalOfZombiesAttack = setInterval(zombieAttack, 500) //Let zombies check and attack every 0.5s
     },
 
     drawBackground: function () {
-        ctx.beginPath();
         ctx.drawImage(myPlayGround, 0, 0, this.width, this.height);
     },
 
@@ -49,15 +50,15 @@ let playGround = {
     }
 }
 
-
 function updateGame() {
+
     document.getElementById("balance").innerText = balance;
     playGround.clear();
-    checkZombiesHits();
     playGround.drawBackground();
+    checkZombiesHits();
 
     for (let i = 0; i < bullets.length; i++) {
-        bullets[i].x += 5;
+        bullets[i].x += bullets[i].speed;
         bullets[i].update();
     }
 
@@ -95,7 +96,6 @@ function newZombies() {
     zombies.push(new Zombie(1100, lines[number].y))
 }
 
-
 //Place Defenders
 function changeSelected(id) {
     selected = id;
@@ -111,21 +111,21 @@ canvas.addEventListener('click', function (e) {
                 switch (selected) {
                     case 0:
                         if (balance >= 100) {
-                            plants.push(new Plant(zones[i].x + 20, zones[i].y, i));
+                            plants.push(new Plant(zones[i].x + 15, zones[i].y, i));
                             balance -= 100;
                             zones[i].available = false;
                         }
                         break;
                     case 1:
                         if (balance >= 50) {
-                            sunFlowers.push(new SunFlower(zones[i].x + 20, zones[i].y, i));
+                            sunFlowers.push(new SunFlower(zones[i].x + 15, zones[i].y, i));
                             balance -= 50;
                             zones[i].available = false;
                         }
                         break;
                     case 2:
                         if (balance >= 50) {
-                            walls.push(new Wall(zones[i].x + 20, zones[i].y, i));
+                            walls.push(new Wall(zones[i].x + 15, zones[i].y, i));
                             balance -= 50;
                             zones[i].available = false;
                         }
@@ -151,6 +151,7 @@ function checkZombiesHits() {
             if (zombies[i].y == bullets[j].y && bullets[j].x > zombies[i].x) {
                 bullets[j].destroy(j);
                 zombies[i].getShot();
+                console.log('hp of zombie ' + i + ' is: ' + zombies[i].hp)
                 zombies[i].checkStatus(i);
             }
         }
@@ -169,12 +170,12 @@ function collectSun() {
 }
 
 //Let Zombies attack
-function zombieAttack(){
+function zombieAttack() {
     for (let i = 0; i < zombies.length; i++) {
         zombies[i].detectObject();
     }
 }
 
-canvas.addEventListener('click', function (e){
+canvas.addEventListener('click', function (e) {
     console.log('clicked' + e.offsetX + '/' + e.offsetY)
 })

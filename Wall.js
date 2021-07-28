@@ -5,11 +5,12 @@ class Wall {
     height;
     hp;
     zoneId;
+
     constructor(x, y, zoneId) {
         this.x = x;
         this.y = y;
         this.width = 50;
-        this.height = 75;
+        this.height = 65;
         this.hp = 10;
         this.zoneId = zoneId;
     }

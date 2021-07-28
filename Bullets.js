@@ -5,13 +5,15 @@ class Bullets {
     width;
     height;
     x;
-    y
+    y;
+    speed;
 
-    constructor(x,y) {
+    constructor(x, y) {
         this.width = 20;
         this.height = 20;
         this.x = x;
         this.y = y;
+        this.speed = 6;
     }
 
     update() {
@@ -20,7 +22,7 @@ class Bullets {
     }
 
     destroy(id) {
-        bullets.splice(id,1)
+        bullets.splice(id, 1)
         for (let i = 0; i < zones.length; i++) {
 
         }

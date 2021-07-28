@@ -21,7 +21,7 @@ class Zombie {
     }
 
     getShot() {
-        this.hp--;
+        this.hp -= 1;
     }
 
     // dead() {
@@ -29,8 +29,8 @@ class Zombie {
     //     this.y = -100;
     // }
 
-    dead(id){
-        zombies.splice(id,1)
+    dead(id) {
+        zombies.splice(id, 1)
     }
 
     checkStatus(id) {
@@ -39,8 +39,29 @@ class Zombie {
         }
     }
 
-    attack(object){
+    attack(object) {
         object.hp--;
+    }
+
+    detectObject() {
+        for (let i = 0; i < defenders.length; i++) {
+            for (let j = 0; j < defenders[i].length; j++) {
+                if (this.x > defenders[i][j].x && this.x < defenders[i][j].x + defenders[i][j].width && this.y == defenders[i][j].y && defenders[i][j].hp > 1) {
+                    this.speed = 0;
+                    this.attack(defenders[i][j])
+                    defenders[i][j].checkStatus();
+
+                } else if (defenders[i][j].hp == 1) {
+                    for (let k = 0; k < zombies.length; k++) {
+                        if (zombies[k].y == defenders[i][j].y) {
+                            zombies[k].speed = 1;
+                        }
+                    }
+                    this.attack(defenders[i][j])
+                    defenders[i][j].checkStatus(j);
+                }
+            }
+        }
     }
 
     // detectObject(){
@@ -63,27 +84,6 @@ class Zombie {
     //     }
     //
     // }
-    detectObject(){
-        for (let i = 0; i < defenders.length; i++) {
-            for (let j = 0; j < defenders[i].length; j++) {
-                if (this.x > defenders[i][j].x && this. x < defenders[i][j].x + defenders[i][j].width && this.y == defenders[i][j].y && defenders[i][j].hp > 1 ){
-                    this.speed = 0;
-                    this.attack(defenders[i][j])
-                    defenders[i][j].checkStatus();
-
-                } else if (defenders[i][j].hp == 1) {
-                    for (let k = 0; k < zombies.length; k++) {
-                        if (zombies[k].y == defenders[i][j].y) {
-                            zombies[k].speed = 1;
-                        }
-                    }
-                    this.attack(defenders[i][j])
-                    defenders[i][j].checkStatus(j);
-                }
-            }
-        }
-    }
-
 
 }
 
