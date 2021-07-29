@@ -5,13 +5,11 @@
     <title>PvsZ lowMoney Version</title>
 </head>
 <body onload="playGround.drawBackground()">
-<button onclick="startGame()"> Start</button>
-<button onclick="playGround.stop()"> Stop</button>
-<button onclick="restartGame()">Restart</button>
-<button onclick="removePlants()">Remove Plants</button>
-<button onclick="collectSun()">Collect Sun</button>
 
-<table border="0" style="border-collapse: separate">
+<!--<button onclick="removePlants()">Remove Plants</button>-->
+<!--<button onclick="collectSun()">Collect Sun</button>-->
+
+<table style="border-collapse: separate; border: 0px solid darkgrey; height: 150px">
     <tr>
         <td onclick="collectSun()"> <img src="img/balance.png" alt="balance"></td>
         <td id="0" onclick="changeSelected(0)"> <img src="img/plantCard.png" alt="plant"></td>
@@ -30,35 +28,35 @@
 <!--        <td style="background-image:url(img/balance.png);background-repeat:no-repeat;background-size:250px 180px;   width: 250px; height: 180px;">Hi</td>-->
     </tr>
 </table>
-<p id="displayCanvas"></p>
-<h2 id="score"> Scores: 0</h2>
+<button onclick="startGame()"> Start</button>
+<button onclick="playGround.stop()"> Stop</button>
+<button onclick="restartGame()">Restart</button>
+<p id="score"> Scores: 0</p>
 
 <canvas id="canvas" width="1450" height="650"></canvas>
-
-<script src="Classes/Zombie.js"></script>
-<script src="Classes/Plant.js"></script>
-<script src="Classes/SunFlower.js"></script>
-<script src="Classes/Wall.js"></script>
-<script src="Classes/CherryBomb.js"></script>
-<script src="Classes/Bullets.js"></script>
-<script src="Classes/Line.js"></script>
-<script src="Classes/Zone.js"></script>
-<script src="CoolDown.js"></script>
 <script src="audio.js"></script>
+<script src="Classes/zombie.js"></script>
+<script src="Classes/plant.js"></script>
+<script src="Classes/sunFlower.js"></script>
+<script src="Classes/wall.js"></script>
+<script src="Classes/cherryBomb.js"></script>
+<script src="Classes/bullets.js"></script>
+<script src="Classes/line.js"></script>
+<script src="Classes/zone.js"></script>
+<script src="coolDown.js"></script>
+
 <script src="main.js"></script>
 
-<audio id="cherrybomb" src="audio/cherrybomb.ogg"></audio>
-<audio id="eat" src="audio/eat.ogg"></audio>
-<audio id="remove" src="audio/remove2.ogg"></audio>
-<audio id="startgame" src="audio/startGame.ogg"></audio>
-<audio id="endgame" src="audio/losemusic.ogg"></audio>
-<audio id="hitzombie" src="audio/zomebieHit.ogg"></audio>
-<audio id="firepea"src="audio/firepea.ogg"></audio>
-<audio id="plant"src="audio/placeDef.ogg"></audio>
-<audio id="newzom"src="audio/groan1.ogg"></audio>
-<audio id="background"src="audio/chaos-patrol-preview-full.mp3"></audio>
-
-<audio id="audio"></audio>
+<!--<audio id="cherrybomb" src="audio/cherrybomb.ogg"></audio>-->
+<!--<audio id="eat" src="audio/eat.ogg"></audio>-->
+<!--<audio id="remove" src="audio/remove2.ogg"></audio>-->
+<!--<audio id="startgame" src="audio/startGame.ogg"></audio>-->
+<!--<audio id="endgame" src="audio/losemusic.ogg"></audio>-->
+<!--<audio id="hitzombie" src="audio/zomebieHit.ogg"></audio>-->
+<!--<audio id="firepea"src="audio/firepea.ogg"></audio>-->
+<!--<audio id="plant"src="audio/placeDef.ogg"></audio>-->
+<!--<audio id="newzom"src="audio/groan1.ogg"></audio>-->
+<!--<audio id="background"src="audio/chaos-patrol-preview-full.mp3"></audio>-->
 
 </body>
 </html>

@@ -10,7 +10,7 @@ let cooldownWallMax = 9;
 let currentCooldownWall = 0;
 let isCooldownWall = false;
 
-let cooldownCherryMax = 15;
+let cooldownCherryMax = 12;
 let currentCooldownCherry = 0;
 let isCooldownCherry = false;
 

@@ -9,7 +9,7 @@ class CherryBomb {
     readyExplode;
 
     constructor(zone, zoneId) {
-        this.x = zone.x + 15;
+        this.x = zone.x + 5;
         this.y = zone.y;
         this.zoneId = zoneId;
         this.width = 65;
@@ -60,8 +60,8 @@ class CherryBomb {
         }
         if (this.readyExplode) {
             this.explode(id);
-            // playSound(cherrySound);
-            cherrySound();
+            cherrySound.play();
+            // cherrySound();
         }
 
     }

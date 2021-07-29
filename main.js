@@ -2,8 +2,13 @@ let canvas = document.getElementById("canvas")
 let ctx = canvas.getContext("2d");
 
 let houseLine = 200;
-let balance = 5000;
+let balance = 100;
 let scores = 0;
+
+let spawnZombie = 8000;
+let scoreMark = 0;
+
+let spawnSun = 3000;
 
 let myPlayGround = new Image();
 myPlayGround.src = "img/backGround1.jpg"
@@ -23,7 +28,6 @@ let randomMoney = [];
 let selected;
 let previousSelected;
 let isPlantSelected = false;
-
 let isRemoveSelected = false;
 
 document.getElementById("balance").innerText = balance;
@@ -34,10 +38,10 @@ let playGround = {
 
     start: function () {
         this.intervalOfUpdate = setInterval(updateGame, 20); //Draw everything again after 20ms
-        this.intervalOfNewZombies = setInterval(newZombies, 6000); //Create new zombies every 5s
+        this.intervalOfNewZombies = setInterval(newZombies, spawnZombie); //Create new zombies every 5s
         this.intervalOfDetectZombies = setInterval(detectZombies, 1000); //Let Plant check and attack every 1s
-        this.intevalOfGenerateSun = setInterval(generateSun, 3000); //Generate sun every 3s at random SunFlowers
-        this.itervalOfRandomSun = setInterval(randomSun, 10000); //Random Sun vevery 10s
+        this.intevalOfGenerateSun = setInterval(generateSun, spawnSun); //Generate sun every 3s at random SunFlowers
+        this.itervalOfRandomSun = setInterval(randomSun, 8000); //Random Sun vevery 10s
         this.intervalOfZombiesAttack = setInterval(zombieAttack, 1000); //Let zombies check and attack every 0.5s
         this.intevalOfCherries = setInterval(checkCherries, 1000)//Check cherries for explode every 1s
         this.intevalOfCooldown = setInterval(reduceCooldown, 1000);//Reduce cooldown every 1s
@@ -70,6 +74,14 @@ function updateGame() {
     updateBalance();
     updateScore()
     checkZombiesHits();
+
+    if (scoreMark > 4) {
+        scoreMark = 0;
+        spawnZombie -= 600;
+        if (spawnZombie < 2000) {
+            spawnZombie == 2000
+        }
+    }
 
     for (let i = 0; i < bullets.length; i++) {
         bullets[i].x += bullets[i].speed;
@@ -110,8 +122,8 @@ function updateGame() {
 function startGame() {
     playGround.clear();
     playGround.start();
-    // playSound(startgameSound)
-    startgameSound();
+    startgameSound.play();
+    // startgameSound();
 }
 
 function restartGame() {
@@ -119,7 +131,7 @@ function restartGame() {
     plants = [];
     sunFlowers = [];
     walls = [];
-    defenders = [plants, sunFlowers, walls, cherries]
+    defenders = [plants, sunFlowers, walls]
     for (let i = 0; i < zones.length; i++) {
         zones[i].available = true;
     }
@@ -129,7 +141,7 @@ function restartGame() {
     money = [];
     isPlantSelected = false;
     isRemoveSelected = false;
-    balance = 5000;
+    balance = 100;
     restartCooldown();
     updateGame();
 }
@@ -149,7 +161,7 @@ function changeSelected(id) {
     if (isPlantSelected && id === previousSelected) {
         isPlantSelected = false;
         unHighlightSelected(id)
-    } else if (isPlantSelected === false|| isPlantSelected === true && id !== previousSelected && previousSelected >=0) {
+    } else if (isPlantSelected === false || isPlantSelected === true && id !== previousSelected && previousSelected >= 0) {
         isPlantSelected = true;
         isRemoveSelected = false;
         highlightSelected(id)
@@ -160,15 +172,15 @@ function changeSelected(id) {
     previousSelected = id;
 }
 
-function highlightSelected(id){
+function highlightSelected(id) {
 
-        document.getElementById(id + '').style.border = "solid green";
+    document.getElementById(id + '').style.border = "dashed #356397E8";
 
 }
 
-function unHighlightSelected(id){
+function unHighlightSelected(id) {
 
-        document.getElementById(id + '').style.border = "0px"
+    document.getElementById(id + '').style.border = "0px"
 
 }
 
@@ -220,6 +232,7 @@ canvas.addEventListener('click', function (e) {
                     if (balance >= 50 && !isCooldownSunFlower) {
                         sunFlowers.push(new SunFlower(selectedZone, id));
                         balance -= 50;
+                        spawnSun -= 100;
                         selectedZone.available = false;
                         isCooldownSunFlower = true;
                         currentCooldownSunFlower = cooldownSunFlowerMax;
@@ -246,8 +259,8 @@ canvas.addEventListener('click', function (e) {
                     }
                     break;
             }
-            // playSound(plantSound)
-            placeDefenders();
+            plantSound.play();
+            // placeDefenders();
             isPlantSelected = false;
             unHighlightSelected(selected)
         }
@@ -256,8 +269,8 @@ canvas.addEventListener('click', function (e) {
             for (let k = 0; k < defenders[j].length; k++) {
                 if (defenders[j][k].zoneId === id) {
                     defenders[j][k].remove(k);
-                    // playSound(removeSound);
-                    removeSound();
+                    removeSound.play();
+                    // removeSound();
                 }
                 isRemoveSelected = false;
             }
@@ -270,7 +283,7 @@ canvas.addEventListener('click', function (e) {
 function newZombies() {
     let number = Math.floor(Math.random() * 5)
     zombies.push(new Zombie(lines[number].y, 1));
-    if (scores % 5 === 0 && scores!== 0) {
+    if (scores % 5 === 0 && scores !== 0) {
         number = Math.floor(Math.random() * 5)
         zombies.push(new Zombie(lines[number].y, 2))
     }
@@ -278,8 +291,15 @@ function newZombies() {
         number = Math.floor(Math.random() * 5)
         zombies.push(new Zombie(lines[number].y, 3))
     }
-    // playSound(newZomSound)
-    newZombiewSound();
+    if (scores % 50 === 0 && scores !== 0) {
+        for (let i = 0; i < 10; i++) {
+            number = Math.floor(Math.random() * 5)
+            let level = Math.floor(Math.random() * 3 + 1)
+            zombies.push(new Zombie(lines[number].y, level))
+        }
+    }
+    newZomSound.play();
+    // newZombiewSound();
 }
 
 
@@ -304,8 +324,8 @@ function checkZombiesHits() {
             if (zombies[i].y == bullets[j].y && bullets[j].x > zombies[i].x) {
                 bullets[j].destroy(j);
                 zombies[i].getShot();
-                // playSound(hitZombieSound)
-                hitZombieSound();
+                hitZombieSound.play();
+                // hitZombieSound();
                 console.log('hp of zombie ' + i + ' is: ' + zombies[i].hp)
                 zombies[i].checkStatus(i);
             }

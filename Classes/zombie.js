@@ -46,6 +46,7 @@ class Zombie {
     dead(id) {
         zombies.splice(id, 1);
         scores++;
+        scoreMark++;
     }
 
     checkStatus(id) {
@@ -57,8 +58,8 @@ class Zombie {
     attack(object) {
         object.hp-=1;
         console.log('object hp: '+ object.hp)
-        // playSound(eatSound)
-        zombieEatSound();
+        eatSound.play();
+        // zombieEatSound();
     }
 
     detectObject() {
@@ -86,8 +87,8 @@ class Zombie {
         if (this.x < houseLine){
             if (!alert('Your brain are gone. Game over')) {
                 playGround.stop();
-               // playSound(endgameSound)
-                endgameSound();
+               endgameSound.play();
+               //  endgameSound();
             }
 
         }

@@ -37,8 +37,8 @@ class Plant {
 
     shoot() {
         bullets.push(new Bullets(this.x + 20, this.y));
-        // playSound(firePea)
-        fireSound();
+        firePea.play();
+        // fireSound();
     }
 
     detectZombies() {
