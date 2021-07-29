@@ -61,6 +61,9 @@ class Sun {
     }
 
     update() {
+        if (this.y > 622){
+            this.y = 622;
+        }
         ctx.beginPath();
         ctx.drawImage(sun, this.x + 20, this.y + 35, 60, 60)
     }

@@ -75,7 +75,7 @@ class CherryBombArea {
         this.x = cherry.x - 70;
         this.y = cherry.y - 110;
         this.width = 3 * 70;
-        this.height = 3 * 110;
+        this.height = 3 * 90;
     }
 }
 

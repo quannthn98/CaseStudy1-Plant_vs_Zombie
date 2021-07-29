@@ -19,6 +19,7 @@ let defenders = [plants, sunFlowers, walls]
 let zombies = [];
 let bullets = [];
 let money = [];
+let randomMoney = [];
 
 let selected;
 let previousSelected;
@@ -34,9 +35,10 @@ let playGround = {
 
     start: function () {
         this.intervalOfUpdate = setInterval(updateGame, 20); //Draw everything again after 20ms
-        this.intervalOfNewZombies = setInterval(newZombies, 3000); //Create new zombies every 5s
+        this.intervalOfNewZombies = setInterval(newZombies, 5000); //Create new zombies every 5s
         this.intervalOfDetectZombies = setInterval(detectZombies, 1000); //Let Plant check and attack every 1s
         this.intevalOfGenerateSun = setInterval(generateSun, 3000); //Generate sun every 3s at random SunFlowers
+        this.itervalOfRandomSun = setInterval(randomSun, 10000); //Random Sun vevery 10s
         this.intervalOfZombiesAttack = setInterval(zombieAttack, 500); //Let zombies check and attack every 0.5s
         this.intevalOfCherries = setInterval(checkCherries, 1000)
         this.intevalOfCooldown = setInterval(reduceCooldown, 1000);
@@ -133,6 +135,14 @@ function updateGame() {
         money[i].update();
     }
 
+    for (let i = 0; i < randomMoney.length; i++) {
+        randomMoney[i].y += 3;
+        if (randomMoney[i].y > 600) {
+            randomMoney[i].y = 600;
+        }
+        randomMoney[i].update();
+    }
+
 }
 
 function startGame() {
@@ -169,7 +179,7 @@ function newZombies() {
     zombies.push(new Zombie(1100, lines[number].y))
 }
 
-//Place/Remove Defenders
+//Place Defenders
 function changeSelected(id) {
     selected = id;
     previousSelected = id
@@ -181,6 +191,7 @@ function changeSelected(id) {
     }
 }
 
+//Remove Defenders
 function removePlants() {
     if (isRemoveSelected) {
         isRemoveSelected = false;
@@ -278,6 +289,7 @@ function detectZombies() {
     }
 }
 
+// Check if Zombies het Hits by bullets
 function checkZombiesHits() {
     for (let i = 0; i < zombies.length; i++) {
         for (let j = 0; j < bullets.length; j++) {
@@ -299,9 +311,18 @@ function generateSun() {
     }
 }
 
+//Random Sun
+function randomSun(){
+    let randomX = Math.floor(Math.random()* 1000 + 200)
+    randomMoney.push(new Sun(randomX, 0))
+}
+
+//Collect Money
 function collectSun() {
     balance += money.length * 25;
+    balance += randomMoney.length * 25;
     money.splice(0, money.length);
+    randomMoney.splice(0, randomMoney.length)
 }
 
 //Check for Cherries Explotion

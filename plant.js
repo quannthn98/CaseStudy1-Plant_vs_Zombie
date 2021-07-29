@@ -46,7 +46,7 @@ class Plant {
                 canShoot = true;
             }
         }
-        console.log(canShoot)
+
         if (canShoot) {
             this.shoot();
         }
