@@ -2,12 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-
-
-
+    <title>PvsZ lowMoney Version</title>
 </head>
-<body>
+<body onload="playGround.drawBackground()">
 <button onclick="startGame()"> Start</button>
 <button onclick="playGround.stop()"> Stop</button>
 <button onclick="restartGame()">Restart</button>
@@ -16,37 +13,52 @@
 
 <table border="0" style="border-right: 0px; border-top: 0px;border-bottom: 0px">
     <tr>
-        <td onclick="collectSun()"> <img style="float: top" src="img/balance.png" alt="balance"></td>
-        <td onclick="changeSelected(0)"> <img src="img/plantCard.png" alt="plant"></td>
-        <td onclick="changeSelected(1)"> <img src="img/SunCard.png" alt="sun"></td>
-        <td onclick="changeSelected(2)"> <img src="img/wallCard.png" alt="cherry"></td>
-        <td onclick="changeSelected(3)"> <img src="img/cherryCard.png" alt="plant"></td>
-        <td onclick="removePlants()" style="border-bottom: 0px; border-top: 0px; border-right: 0px" ><img src="img/remove.png" alt="remove"></td>
+        <td onclick="collectSun()"> <img src="img/balance.png" alt="balance"></td>
+        <td id="0" onclick="changeSelected(0)"> <img src="img/plantCard.png" alt="plant"></td>
+        <td id="1" onclick="changeSelected(1)"> <img src="img/SunCard.png" alt="sun"></td>
+        <td id="2" onclick="changeSelected(2)"> <img src="img/wallCard.png" alt="cherry"></td>
+        <td id="3" onclick="changeSelected(3)"> <img src="img/cherryCard.png" alt="plant"></td>
+        <td id="removeplant" onclick="removePlants()" ><img src="img/remove.png" alt="remove"></td>
     </tr>
-    <tr>
-        <td id="balance" style="text-align: center; font-family: Arial; font-weight: bold"></td>
-        <td id="shooter" style="text-align: center"></td>
-        <td id="sunflower" style="text-align: center"></td>
-        <td id="wall" style="text-align: center"></td>
-        <td id="cherry" style="text-align: center"></td>
-        <td style="border: 0px"></td>
+    <tr style="text-align: center">
+        <td id="balance" style=" font-family: Arial; font-weight: bold"></td>
+        <td id="shooter" ></td>
+        <td id="sunflower" ></td>
+        <td id="wall" ></td>
+        <td id="cherry" ></td>
+        <td ></td>
 <!--        <td style="background-image:url(img/balance.png);background-repeat:no-repeat;background-size:250px 180px;   width: 250px; height: 180px;">Hi</td>-->
     </tr>
 </table>
-
-<p></p>
+<p id="displayCanvas"></p>
+<h2 id="score"> Scores: 0</h2>
 
 <canvas id="canvas" width="1450" height="650"></canvas>
 
-<script src="zombie.js"></script>
-<script src="plant.js"></script>
-<script src="SunFlower.js"></script>
-<script src="Wall.js"></script>
-<script src="cherryBomb.js"></script>
-<script src="Bullets.js"></script>
-<script src="Line.js"></script>
-<script src="Zone.js"></script>
-<script src="coolDown.js"></script>
+<script src="Classes/Zombie.js"></script>
+<script src="Classes/Plant.js"></script>
+<script src="Classes/SunFlower.js"></script>
+<script src="Classes/Wall.js"></script>
+<script src="Classes/CherryBomb.js"></script>
+<script src="Classes/Bullets.js"></script>
+<script src="Classes/Line.js"></script>
+<script src="Classes/Zone.js"></script>
+<script src="CoolDown.js"></script>
+<script src="audio.js"></script>
 <script src="main.js"></script>
+
+<audio id="cherrybomb" src="audio/cherrybomb.ogg"></audio>
+<audio id="eat" src="audio/eat.ogg"></audio>
+<audio id="remove" src="audio/remove2.ogg"></audio>
+<audio id="startgame" src="audio/startGame.ogg"></audio>
+<audio id="endgame" src="audio/losemusic.ogg"></audio>
+<audio id="hitzombie" src="audio/zomebieHit.ogg"></audio>
+<audio id="firepea"src="audio/firepea.ogg"></audio>
+<audio id="plant"src="audio/placeDef.ogg"></audio>
+<audio id="newzom"src="audio/groan1.ogg"></audio>
+<audio id="background"src="audio/chaos-patrol-preview-full.mp3"></audio>
+
+<audio id="audio"></audio>
+
 </body>
 </html>
