@@ -1,17 +1,24 @@
 let canvas = document.getElementById("canvas")
 let ctx = canvas.getContext("2d");
 
+let isGameStarted = false;
+
 let houseLine = 200;
-let balance = 100;
+let balance = 1000;
 let scores = 0;
 
 let spawnZombie = 8000;
 let scoreMark = 0;
 
 let spawnSun = 3000;
+let numberSunGen = 1;
+let sunFlowerMark = 0;
 
 let myPlayGround = new Image();
 myPlayGround.src = "img/backGround1.jpg"
+
+let menu = new Image();
+menu.src = "img/menu.png"
 
 let plants = [];
 let sunFlowers = [];
@@ -31,6 +38,8 @@ let isPlantSelected = false;
 let isRemoveSelected = false;
 
 document.getElementById("balance").innerText = balance;
+
+canvas.addEventListener('click', startGame, false);
 
 let playGround = {
     width: canvas.width,
@@ -64,6 +73,17 @@ let playGround = {
         clearInterval(this.itervalOfRandomSun);
         clearInterval(this.intevalOfCherries);
         clearInterval(this.intevalOfCooldown);
+        isGameStarted = false;
+    }
+}
+
+function startGame() {
+    if (!isGameStarted) {
+        isGameStarted = true;
+        playGround.clear();
+        playGround.start();
+        startgameSound.play();
+        // startgameSound();
     }
 }
 
@@ -72,17 +92,20 @@ function updateGame() {
     playGround.clear();
     playGround.drawBackground();
     updateBalance();
-    updateScore()
+    updateScore();
     checkZombiesHits();
 
     if (scoreMark > 4) {
         scoreMark = 0;
         spawnZombie -= 600;
         if (spawnZombie < 2000) {
-            spawnZombie == 2000
+            spawnZombie == 2000;
         }
     }
 
+    if(spawnSun > 5500){
+        spawnSun = 5500;
+    }
     for (let i = 0; i < bullets.length; i++) {
         bullets[i].x += bullets[i].speed;
         bullets[i].update();
@@ -119,13 +142,6 @@ function updateGame() {
 
 }
 
-function startGame() {
-    playGround.clear();
-    playGround.start();
-    startgameSound.play();
-    // startgameSound();
-}
-
 function restartGame() {
     playGround.stop();
     plants = [];
@@ -146,12 +162,16 @@ function restartGame() {
     updateGame();
 }
 
+function drawMenu() {
+    ctx.drawImage(menu, 0, 0, canvas.width, canvas.height);
+}
+
 function updateBalance() {
     document.getElementById("balance").innerText = balance;
 }
 
 function updateScore() {
-    document.getElementById("score").innerText = "Scores: " + scores
+    document.getElementById("score").innerText = "Scores: " + scores;
 }
 
 
@@ -166,22 +186,18 @@ function changeSelected(id) {
         isRemoveSelected = false;
         highlightSelected(id)
         if (previousSelected >= 0) {
-            unHighlightSelected(previousSelected)
+            unHighlightSelected(previousSelected);
         }
     }
     previousSelected = id;
 }
 
 function highlightSelected(id) {
-
     document.getElementById(id + '').style.border = "dashed #356397E8";
-
 }
 
 function unHighlightSelected(id) {
-
-    document.getElementById(id + '').style.border = "0px"
-
+    document.getElementById(id + '').style.border = "0px";
 }
 
 //Remove Defenders
@@ -205,7 +221,7 @@ canvas.addEventListener('click', function (e) {
             if (x > zones[i].x && x < zones[i].x + zones[i].width && y > zones[i].y && y < zones[i].y + zones[i].height) {
                 selectedZone = zones[i];
                 id = i;
-                console.log(selectedZone.x + ',' + selectedZone.y + ',' + selectedZone.available)
+                console.log(selectedZone.x + ',' + selectedZone.y + ',' + selectedZone.available);
                 break;
             }
         }
@@ -232,7 +248,8 @@ canvas.addEventListener('click', function (e) {
                     if (balance >= 50 && !isCooldownSunFlower) {
                         sunFlowers.push(new SunFlower(selectedZone, id));
                         balance -= 50;
-                        spawnSun -= 100;
+                        spawnSun += 150;
+                        sunFlowerMark++;
                         selectedZone.available = false;
                         isCooldownSunFlower = true;
                         currentCooldownSunFlower = cooldownSunFlowerMax;
@@ -252,7 +269,7 @@ canvas.addEventListener('click', function (e) {
                 case 3:
                     if (balance >= 150 && !isCooldownCherry) {
                         cherries.push(new CherryBomb(selectedZone, id));
-                        balance -= 150;
+                        balance -= 50;
                         selectedZone.available = false;
                         isCooldownCherry = true;
                         currentCooldownCherry = cooldownCherryMax;
@@ -262,7 +279,7 @@ canvas.addEventListener('click', function (e) {
             plantSound.play();
             // placeDefenders();
             isPlantSelected = false;
-            unHighlightSelected(selected)
+            unHighlightSelected(selected);
         }
     } else if (isRemoveSelected) {
         for (let j = 0; j < defenders.length; j++) {
@@ -283,19 +300,23 @@ canvas.addEventListener('click', function (e) {
 function newZombies() {
     let number = Math.floor(Math.random() * 5)
     zombies.push(new Zombie(lines[number].y, 1));
+
     if (scores % 5 === 0 && scores !== 0) {
-        number = Math.floor(Math.random() * 5)
-        zombies.push(new Zombie(lines[number].y, 2))
+        number = Math.floor(Math.random() * 5);
+        zombies.push(new Zombie(lines[number].y, 2));
     }
+
     if (scores % 11 === 0 && scores !== 0) {
-        number = Math.floor(Math.random() * 5)
-        zombies.push(new Zombie(lines[number].y, 3))
+        number = Math.floor(Math.random() * 5);
+        zombies.push(new Zombie(lines[number].y, 3));
     }
-    if (scores % 50 === 0 && scores !== 0) {
-        for (let i = 0; i < 10; i++) {
-            number = Math.floor(Math.random() * 5)
-            let level = Math.floor(Math.random() * 3 + 1)
-            zombies.push(new Zombie(lines[number].y, level))
+
+    if (scores % 2 === 0 && scores !== 0) {
+        hugeWave.play()
+        for (let i = 0; i < 15; i++) {
+            number = Math.floor(Math.random() * 5);
+            let level = Math.floor(Math.random() * 3 + 1);
+            zombies.push(new Zombie(lines[number].y, level));
         }
     }
     newZomSound.play();
@@ -335,16 +356,23 @@ function checkZombiesHits() {
 
 //SunFlowers function
 function generateSun() {
+    if (sunFlowerMark > 3){
+        numberSunGen++;
+        sunFlowerMark = 0;
+    }
     if (sunFlowers.length > 0) {
-        let number = Math.floor(Math.random() * sunFlowers.length)
-        sunFlowers[number].generateSun();
+        for (let i = 0; i < numberSunGen; i++) {
+            let number = Math.floor(Math.random() * sunFlowers.length)
+            sunFlowers[number].generateSun();
+        }
+
     }
 }
 
 //Random Sun
 function randomSun() {
-    let randomX = Math.floor(Math.random() * 850 + 200)
-    randomMoney.push(new Sun(randomX, 0))
+    let randomX = Math.floor(Math.random() * 850 + 200);
+    randomMoney.push(new Sun(randomX, 0));
 }
 
 //Collect Money
@@ -352,7 +380,7 @@ function collectSun() {
     balance += money.length * 25;
     balance += randomMoney.length * 25;
     money.splice(0, money.length);
-    randomMoney.splice(0, randomMoney.length)
+    randomMoney.splice(0, randomMoney.length);
 }
 
 //Check for Cherries Explotion
@@ -363,7 +391,7 @@ function checkCherries() {
 }
 
 canvas.addEventListener('click', function (e) {
-    console.log('clicked' + e.offsetX + '/' + e.offsetY)
+    console.log('clicked' + e.offsetX + '/' + e.offsetY);
 })
 
 

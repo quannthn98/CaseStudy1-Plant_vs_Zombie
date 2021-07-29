@@ -32,6 +32,7 @@ class SunFlower {
     dead(id) {
         sunFlowers.splice(id, 1);
         zones[this.zoneId].available = true;
+        sunFlowerMark--;
     }
 
     checkStatus(id) {
@@ -43,6 +44,7 @@ class SunFlower {
     remove(id){
         sunFlowers.splice(id,1);
         zones[this.zoneId].available = true;
+        sunFlowerMark--;
     }
 
 }

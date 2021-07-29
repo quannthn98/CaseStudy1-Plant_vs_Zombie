@@ -29,6 +29,8 @@ plantSound.src = "audio/placeDef.ogg"
 let newZomSound = new Audio()
 newZomSound.src = "audio/groan1.ogg"
 
+let hugeWave = new Audio();
+hugeWave.src = "audio/hugewave.ogg"
 // function zombieEatSound(){
 //     document.getElementById("eat").play();
 // }
