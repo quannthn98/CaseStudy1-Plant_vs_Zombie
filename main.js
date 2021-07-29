@@ -145,23 +145,31 @@ function updateScore() {
 
 //Place Defenders
 function changeSelected(id) {
-    hightlightSelected(id)
     selected = id;
-    previousSelected = id
     if (isPlantSelected && id === previousSelected) {
         isPlantSelected = false;
-    } else if (isPlantSelected === false) {
+        unHighlightSelected(id)
+    } else if (isPlantSelected === false|| isPlantSelected === true && id !== previousSelected && previousSelected >=0) {
         isPlantSelected = true;
         isRemoveSelected = false;
+        highlightSelected(id)
+        if (previousSelected >= 0) {
+            unHighlightSelected(previousSelected)
+        }
     }
+    previousSelected = id;
 }
 
-function hightlightSelected(id){
-    if (isPlantSelected){
-        document.getElementById(id + '').style.border = "solid red";
-    } else {
+function highlightSelected(id){
 
-    }
+        document.getElementById(id + '').style.border = "solid green";
+
+}
+
+function unHighlightSelected(id){
+
+        document.getElementById(id + '').style.border = "0px"
+
 }
 
 //Remove Defenders
@@ -241,6 +249,7 @@ canvas.addEventListener('click', function (e) {
             // playSound(plantSound)
             placeDefenders();
             isPlantSelected = false;
+            unHighlightSelected(selected)
         }
     } else if (isRemoveSelected) {
         for (let j = 0; j < defenders.length; j++) {
