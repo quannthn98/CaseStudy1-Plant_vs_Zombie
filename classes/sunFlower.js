@@ -24,7 +24,7 @@ class SunFlower {
     }
 
     generateSun() {
-        money.push(new Sun(this.x, this.y))
+        money.push(new Sun(this.x, this.y,0))
         ctx.beginPath();
         ctx.drawImage(sun, this.x + 20, this.y + 35, 60, 60)
     }
@@ -54,12 +54,15 @@ class Sun {
     y;
     width;
     height;
-
-    constructor(x, y) {
+    xSpeed;
+    ySpeed;
+    constructor(x, y, ySpeed) {
         this.x = x;
         this.y = y;
         this.width = 60;
         this.height = 60;
+        this.xSpeed = 0;
+        this.ySpeed = ySpeed;
     }
 
     update() {

@@ -122,13 +122,36 @@ function updateGame() {
     }
 
     for (let i = 0; i < money.length; i++) {
+        money[i].x -= money[i].xSpeed;
+        money[i].y -= money[i].ySpeed
         money[i].update();
+        if (money[i].y < 0){
+            money.splice(i,1);
+            balance += 25
+        }
     }
 
+    // for (let i = 0; i < randomMoney.length; i++) {
+    //     randomMoney[i].x -= randomMoney[i].xSpeed;
+    //     randomMoney[i].y -= randomMoney[i].ySpeed;
+    //     if (randomMoney[i].y > 530) {
+    //         randomMoney[i].y = 530;
+    //     }
+    //     if (randomMoney[i].y < 0){
+    //         randomMoney.splice(i,1);
+    //         balance += 25
+    //     }
+    //     randomMoney[i].update();
+    // }
     for (let i = 0; i < randomMoney.length; i++) {
-        randomMoney[i].y += 1;
-        if (randomMoney[i].y > 530) {
-            randomMoney[i].y = 530;
+        randomMoney[i].x -= randomMoney[i].xSpeed;
+        randomMoney[i].y -= randomMoney[i].ySpeed;
+        if (randomMoney[i].y < 0){
+            randomMoney.splice(i,1);
+            balance += 25;
+        }
+        if (randomMoney[i].y > 622){
+            randomMoney[i].y = 622;
         }
         randomMoney[i].update();
     }
@@ -246,7 +269,6 @@ function clickEvent(e){
                     break;
             }
             plantSound.play();
-            // placeDefenders();
             isPlantSelected = false;
             unHighlightSelected(selected);
         }
@@ -312,7 +334,6 @@ function checkZombiesHits() {
                 bullets[j].destroy(j);
                 zombies[i].getShot();
                 hitZombieSound.play();
-                // hitZombieSound();
                 console.log('hp of zombie ' + i + ' is: ' + zombies[i].hp)
                 zombies[i].checkStatus(i);
             }
@@ -338,15 +359,20 @@ function generateSun() {
 //Random Sun
 function randomSun() {
     let randomX = Math.floor(Math.random() * 850 + 200);
-    randomMoney.push(new Sun(randomX, 0));
+    randomMoney.push(new Sun(randomX, 0, -1));
 }
 
-//Collect Money
-function collectSun() {
-    balance += money.length * 25;
-    balance += randomMoney.length * 25;
-    money.splice(0, money.length);
-    randomMoney.splice(0, randomMoney.length);
+function collectSun(){
+    for (let i = 0; i < money.length; i++) {
+        let ratio = money[i].y/(money[i].x - 135);
+        money[i].xSpeed = 9;
+        money[i].ySpeed = (money[i].xSpeed)*ratio;
+    }
+    for (let i = 0; i < randomMoney.length; i++) {
+        let ratio = randomMoney[i].y/(randomMoney[i].x - 135);
+        randomMoney[i].xSpeed = 9;
+        randomMoney[i].ySpeed = (randomMoney[i].xSpeed)*ratio;
+    }
 }
 
 //Check for Cherries Explotion
@@ -355,6 +381,5 @@ function checkCherries() {
         cherries[i].checkZombiesAround(i);
     }
 }
-
 
 

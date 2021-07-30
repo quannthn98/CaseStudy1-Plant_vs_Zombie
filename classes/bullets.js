@@ -24,7 +24,6 @@ class Bullets {
     destroy(id) {
         bullets.splice(id, 1)
         for (let i = 0; i < zones.length; i++) {
-
         }
     }
 
