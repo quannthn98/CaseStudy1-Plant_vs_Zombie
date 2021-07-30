@@ -1,7 +1,3 @@
-// function cherrySound(){
-//
-//     document.getElementById("cherrybomb").play();
-// }
 let cherrySound = new Audio()
 cherrySound.src = "audio/cherrybomb.ogg"
 
@@ -31,42 +27,3 @@ newZomSound.src = "audio/groan1.ogg"
 
 let hugeWave = new Audio();
 hugeWave.src = "audio/hugewave.ogg"
-// function zombieEatSound(){
-//     document.getElementById("eat").play();
-// }
-
-// function removeSound(){
-//     document.getElementById("remove").play();
-// }
-
-// function startgameSound(){
-//     document.getElementById("startgame").play();
-// }
-
-// function endgameSound(){
-//     document.getElementById("endgame").play();
-// }
-
-// function hitZombieSound(){
-//     document.getElementById("hitzombie").play();
-// }
-
-// function fireSound(){
-//     document.getElementById("firepea").play();
-// }
-
-// function placeDefenders(){
-//     document.getElementById("plant").play();
-// }
-
-// function newZombiewSound(){
-//     document.getElementById("newzom").play();
-// }
-
-
-
-
-// function playSound(path){
-//     document.getElementById("audio").src=path;
-//     document.getElementById("audio").play();
-// }

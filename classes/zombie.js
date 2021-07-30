@@ -7,12 +7,13 @@ class Zombie {
     maxSpeed;
     speed;
     img;
+
     constructor(y, level) {
         this.x = 1100;
         this.y = y;
         this.width = 58;
         this.height = 80;
-        switch(level){
+        switch (level) {
             case 1:
                 this.maxSpeed = 1
                 this.img = zombie;
@@ -56,8 +57,8 @@ class Zombie {
     }
 
     attack(object) {
-        object.hp-=1;
-        console.log('object hp: '+ object.hp)
+        object.hp -= 1;
+        console.log('object hp: ' + object.hp)
         eatSound.play();
         // zombieEatSound();
     }
@@ -83,12 +84,12 @@ class Zombie {
         }
     }
 
-    checkIfInHouse(){
-        if (this.x < houseLine){
+    checkIfInHouse() {
+        if (this.x < houseLine) {
             if (!alert('Your brain are gone. Game over')) {
                 playGround.stop();
-               endgameSound.play();
-               //  endgameSound();
+                endgameSound.play();
+                //  endgameSound();
             }
 
         }

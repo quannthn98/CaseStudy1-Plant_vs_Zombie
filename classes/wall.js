@@ -32,8 +32,8 @@ class Wall {
         }
     }
 
-    remove(id){
-        walls.splice(id,1);
+    remove(id) {
+        walls.splice(id, 1);
         zones[this.zoneId].available = true;
     }
 }

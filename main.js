@@ -1,6 +1,3 @@
-// let canvas = document.getElementById("canvas")
-// let ctx = canvas.getContext("2d");
-
 let canvas1 = document.getElementById("canvas1")
 let ctx1 = canvas1.getContext('2d')
 
@@ -48,8 +45,6 @@ let isRemoveSelected = false;
 canvas1.addEventListener('click', startGame, false);
 
 let playGround = {
-    // width: canvas.width,
-    // height: canvas.height,
 
     width: 1450,
     height: 650,
@@ -98,7 +93,7 @@ function updateGame() {
         scoreMark = 0;
         spawnZombie -= 600;
         if (spawnZombie < 2000) {
-            spawnZombie == 2000;
+            spawnZombie = 2000;
         }
     }
 
@@ -112,7 +107,6 @@ function updateGame() {
 
     for (let i = 0; i < cherries.length; i++) {
         cherries[i].update();
-        // cherries[i].checkZombiesAround(i);
     }
 
     for (let i = 0; i < zombies.length; i++) {
@@ -204,7 +198,6 @@ function clickEvent(e){
     }
 
     getClickedZone();
-    // console.log(selectedZone)
     if (isPlantSelected) {
 
         if (selectedZone.available === true) {
@@ -263,7 +256,6 @@ function clickEvent(e){
                 if (defenders[j][k].zoneId === id) {
                     defenders[j][k].remove(k);
                     removeSound.play();
-                    // removeSound();
                 }
                 isRemoveSelected = false;
             }
@@ -296,9 +288,7 @@ function newZombies() {
         }
     }
     newZomSound.play();
-    // newZombiewSound();
 }
-
 
 //Let Zombies Attack plants
 function zombieAttack() {
@@ -366,8 +356,5 @@ function checkCherries() {
     }
 }
 
-canvas.addEventListener('click', function (e) {
-    console.log('clicked' + e.offsetX + '/' + e.offsetY);
-})
 
 

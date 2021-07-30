@@ -30,13 +30,12 @@ function startGame() {
         ctx = canvas.getContext('2d');
         canvas.addEventListener('click', startGame, false);
         document.getElementById("balance").innerText = balance;
-        ctx1.clearRect(0,0,canvas1.width, canvas1.height);
+        ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
         canvas.addEventListener('click', clickEvent, false)
 
         playGround.start();
         startgameSound.play();
         isGameStarted = true;
-        // startgameSound();
     }
 }
 

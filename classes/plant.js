@@ -21,7 +21,7 @@ class Plant {
     }
 
     update() {
-            ctx.drawImage(plant1, this.x, this.y, this.width, this.height);
+        ctx.drawImage(plant1, this.x, this.y, this.width, this.height);
     }
 
     checkStatus(id) {
@@ -38,7 +38,6 @@ class Plant {
     shoot() {
         bullets.push(new Bullets(this.x + 20, this.y));
         firePea.play();
-        // fireSound();
     }
 
     detectZombies() {
@@ -58,7 +57,6 @@ class Plant {
         plants.splice(id, 1);
         zones[this.zoneId].available = true;
     }
-
 
 }
 

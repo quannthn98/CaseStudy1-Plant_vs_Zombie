@@ -17,14 +17,6 @@ class line {
     }
 }
 
-
-// let line1 = new line(265, 90);
-// let line2 = new line(200, 180);
-// let line3 = new line(200, 280);
-// let line4 = new line(200, 380);
-// let line5 = new line(200, 480);
-// let lines = [line1, line2, line3, line4, line5]
-
 let lines = [];
 
 function creatLines() {
