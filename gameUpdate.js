@@ -6,8 +6,8 @@ function increaseGameLevel() {
             spawnZombie = 2000;
         }
     }
-    if (spawnSun > 5500) {
-        spawnSun = 5500;
+    if (spawnSun > 8000) {
+        spawnSun = 8000;
     }
 }
 

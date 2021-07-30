@@ -1,3 +1,7 @@
+canvas1.addEventListener('click', startGame, false);//Click on secondary canvas to start game
+
+
+//Click event of main Canvas
 function clickEvent(e) {
     let x = e.offsetX;
     let y = e.offsetY;
@@ -18,7 +22,7 @@ function clickEvent(e) {
             }
 
         }
-        
+
     }
 
     if (isPlantSelected) {
@@ -41,7 +45,7 @@ function clickEvent(e) {
                     if (balance >= 50 && !isCooldownSunFlower) {
                         sunFlowers.push(new SunFlower(selectedZone, id));
                         balance -= 50;
-                        spawnSun += 250;
+                        spawnSun += 500;
                         sunFlowerMark++;
                         selectedZone.available = false;
                         isCooldownSunFlower = true;
@@ -130,7 +134,6 @@ function clickEvent(e) {
                 restartGame();
                 startGame();
             }
-
         }
     }
 }

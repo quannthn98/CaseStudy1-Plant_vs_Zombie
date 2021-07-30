@@ -44,10 +44,9 @@ let plants = [];
 let sunFlowers = [];
 let walls = [];
 let cherries = [];
+let bullets = [];
 
 let defenders = [plants, sunFlowers, walls]
-
-let bullets = [];
 
 let zombies = [];
 
@@ -58,8 +57,6 @@ let selected;
 let previousSelected;
 let isPlantSelected = false;
 let isRemoveSelected = false;
-
-canvas1.addEventListener('click', startGame, false);
 
 let playGround = {
 
