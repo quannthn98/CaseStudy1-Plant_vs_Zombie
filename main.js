@@ -58,6 +58,8 @@ let previousSelected;
 let isPlantSelected = false;
 let isRemoveSelected = false;
 
+canvas1.addEventListener('click', startGame, false);//Click on secondary canvas to start game
+
 let playGround = {
 
     width: 1450,

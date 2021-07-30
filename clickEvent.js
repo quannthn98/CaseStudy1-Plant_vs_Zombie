@@ -1,4 +1,3 @@
-canvas1.addEventListener('click', startGame, false);//Click on secondary canvas to start game
 
 
 //Click event of main Canvas
