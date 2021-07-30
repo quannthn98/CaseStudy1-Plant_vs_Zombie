@@ -1,5 +1,11 @@
-let canvas = document.getElementById("canvas")
-let ctx = canvas.getContext("2d");
+// let canvas = document.getElementById("canvas")
+// let ctx = canvas.getContext("2d");
+
+let canvas1 = document.getElementById("canvas1")
+let ctx1 = canvas1.getContext('2d')
+
+let canvas;
+let ctx;
 
 let isGameStarted = false;
 
@@ -37,13 +43,16 @@ let previousSelected;
 let isPlantSelected = false;
 let isRemoveSelected = false;
 
-document.getElementById("balance").innerText = balance;
 
-canvas.addEventListener('click', startGame, false);
+
+canvas1.addEventListener('click', startGame, false);
 
 let playGround = {
-    width: canvas.width,
-    height: canvas.height,
+    // width: canvas.width,
+    // height: canvas.height,
+
+    width: 1450,
+    height: 650,
 
     start: function () {
         this.intervalOfUpdate = setInterval(updateGame, 20); //Draw everything again after 20ms
@@ -74,16 +83,6 @@ let playGround = {
         clearInterval(this.intevalOfCherries);
         clearInterval(this.intevalOfCooldown);
         isGameStarted = false;
-    }
-}
-
-function startGame() {
-    if (!isGameStarted) {
-        isGameStarted = true;
-        playGround.clear();
-        playGround.start();
-        startgameSound.play();
-        // startgameSound();
     }
 }
 
@@ -142,30 +141,6 @@ function updateGame() {
 
 }
 
-function restartGame() {
-    playGround.stop();
-    plants = [];
-    sunFlowers = [];
-    walls = [];
-    defenders = [plants, sunFlowers, walls]
-    for (let i = 0; i < zones.length; i++) {
-        zones[i].available = true;
-    }
-    randomMoney = [];
-    zombies = [];
-    bullets = [];
-    money = [];
-    isPlantSelected = false;
-    isRemoveSelected = false;
-    balance = 100;
-    restartCooldown();
-    updateGame();
-}
-
-function drawMenu() {
-    ctx.drawImage(menu, 0, 0, canvas.width, canvas.height);
-}
-
 function updateBalance() {
     document.getElementById("balance").innerText = balance;
 }
@@ -210,7 +185,8 @@ function removePlants() {
     }
 }
 
-canvas.addEventListener('click', function (e) {
+
+function clickEvent(e){
     let x = e.offsetX;
     let y = e.offsetY;
     let id;
@@ -294,7 +270,7 @@ canvas.addEventListener('click', function (e) {
         }
     }
 
-}, false)
+}
 
 //Add new zombies at random Lines
 function newZombies() {

@@ -61,6 +61,7 @@ class CherryBomb {
         if (this.readyExplode) {
             this.explode(id);
             cherrySound.play();
+            ctx.drawImage(cherryExplode, this.x - 30, this.y - 30, this.width + 90, this.height + 90)
             // cherrySound();
         }
 
@@ -84,3 +85,6 @@ class CherryBombArea {
 
 let cherry = new Image();
 cherry.src = "img/cherryBomb.png"
+
+let cherryExplode = new Image();
+cherryExplode.src = "img/cherryExplode.png"

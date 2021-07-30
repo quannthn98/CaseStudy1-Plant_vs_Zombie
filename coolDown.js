@@ -14,10 +14,6 @@ let cooldownCherryMax = 12;
 let currentCooldownCherry = 0;
 let isCooldownCherry = false;
 
-
-
-
-
 function reduceCooldown() {
 
     if (currentCooldownShooter > 0) {

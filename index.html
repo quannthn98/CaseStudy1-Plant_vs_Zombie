@@ -3,38 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>PvsZ lowMoney Version</title>
+
 </head>
-<body onload="drawMenu()">
+<body  onload="drawMenu()">
+<p id="hienthi"></p>
 
 <!--<button onclick="removePlants()">Remove Plants</button>-->
 <!--<button onclick="collectSun()">Collect Sun</button>-->
+<!--<table style="border-collapse: separate; border: 0px solid darkgrey; height: 150px">-->
+<!--    <tr>-->
+<!--        <td onclick="collectSun()"> <img src="img/balance.png" alt="balance"></td>-->
+<!--        <td id="0" onclick="changeSelected(0)"> <img src="img/plantCard.png" alt="plant"></td>-->
+<!--        <td id="1" onclick="changeSelected(1)"> <img src="img/SunCard.png" alt="sun"></td>-->
+<!--        <td id="2" onclick="changeSelected(2)"> <img src="img/wallCard.png" alt="cherry"></td>-->
+<!--        <td id="3" onclick="changeSelected(3)"> <img src="img/cherryCard.png" alt="plant"></td>-->
+<!--        <td id="removeplant" onclick="removePlants()" ><img src="img/remove.png" alt="remove"></td>-->
+<!--    </tr>-->
+<!--    <tr style="text-align: center">-->
+<!--        <td id="balance" style=" font-family: Arial; font-weight: bold"></td>-->
+<!--        <td id="shooter" ></td>-->
+<!--        <td id="sunflower" ></td>-->
+<!--        <td id="wall" ></td>-->
+<!--        <td id="cherry" ></td>-->
+<!--        <td ></td>-->
+<!--&lt;!&ndash;        <td style="background-image:url(img/balance.png);background-repeat:no-repeat;background-size:250px 180px;   width: 250px; height: 180px;">Hi</td>&ndash;&gt;-->
+<!--    </tr>-->
+<!--</table>-->
 
-<table style="border-collapse: separate; border: 0px solid darkgrey; height: 150px">
-    <tr>
-        <td onclick="collectSun()"> <img src="img/balance.png" alt="balance"></td>
-        <td id="0" onclick="changeSelected(0)"> <img src="img/plantCard.png" alt="plant"></td>
-        <td id="1" onclick="changeSelected(1)"> <img src="img/SunCard.png" alt="sun"></td>
-        <td id="2" onclick="changeSelected(2)"> <img src="img/wallCard.png" alt="cherry"></td>
-        <td id="3" onclick="changeSelected(3)"> <img src="img/cherryCard.png" alt="plant"></td>
-        <td id="removeplant" onclick="removePlants()" ><img src="img/remove.png" alt="remove"></td>
-    </tr>
-    <tr style="text-align: center">
-        <td id="balance" style=" font-family: Arial; font-weight: bold"></td>
-        <td id="shooter" ></td>
-        <td id="sunflower" ></td>
-        <td id="wall" ></td>
-        <td id="cherry" ></td>
-        <td ></td>
-<!--        <td style="background-image:url(img/balance.png);background-repeat:no-repeat;background-size:250px 180px;   width: 250px; height: 180px;">Hi</td>-->
-    </tr>
-</table>
+<!--<canvas id="canvas" width="1450" height="650"></canvas>-->
+<canvas id="canvas1" width="1900" height="900"></canvas>
 
-<button onclick="startGame()"> Start</button>
-<button onclick="playGround.stop()"> Stop</button>
-<button onclick="restartGame()">Restart</button>
-<p id="score"> Scores: 0</p>
-
-<canvas id="canvas" width="1450" height="650"></canvas>
 <script src="audio.js"></script>
 <script src="Classes/zombie.js"></script>
 <script src="Classes/plant.js"></script>
@@ -45,7 +43,7 @@
 <script src="Classes/line.js"></script>
 <script src="Classes/zone.js"></script>
 <script src="coolDown.js"></script>
-
+<script src="startGame.js"></script>
 <script src="main.js"></script>
 
 <!--<audio id="cherrybomb" src="audio/cherrybomb.ogg"></audio>-->
