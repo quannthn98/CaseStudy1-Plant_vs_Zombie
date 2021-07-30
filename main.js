@@ -7,6 +7,7 @@ let ctx;
 let isGameStarted = false;
 let isGamePaused = false;
 let isRestartClicked = false;
+let isGameEnded = false;
 
 let houseLine = 200;
 let balance = 100;
@@ -77,7 +78,7 @@ let playGround = {
 
     drawBackground: function () {
         ctx.drawImage(myPlayGround, 0, 0, this.width, this.height);
-        ctx.drawImage(pauseButton, 1050, 0, 250,180)
+        ctx.drawImage(pauseButton, 1050, 0, 250, 180)
     },
 
     clear: function () {
@@ -142,7 +143,7 @@ function changeSelected(id) {
         isPlantSelected = false;
         unHighlightSelected(id)
 
-    } else if (isPlantSelected === false || isPlantSelected === true && id !== previousSelected ) {
+    } else if (isPlantSelected === false || isPlantSelected === true && id !== previousSelected) {
 
         isPlantSelected = true;
         isRemoveSelected = false;
@@ -175,11 +176,6 @@ function removePlants() {
     }
 }
 
-//Check for Cherries Explotion
-function checkCherries() {
-    for (let i = 0; i < cherries.length; i++) {
-        cherries[i].checkZombiesAround(i);
-    }
-}
+
 
 

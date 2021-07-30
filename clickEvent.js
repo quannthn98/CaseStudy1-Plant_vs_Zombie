@@ -68,7 +68,9 @@ function clickEvent(e) {
             isPlantSelected = false;
             unHighlightSelected(selected);
         }
+
     } else if (isRemoveSelected) {
+
         for (let j = 0; j < defenders.length; j++) {
             for (let k = 0; k < defenders[j].length; k++) {
                 if (defenders[j][k].zoneId === id) {
@@ -78,18 +80,25 @@ function clickEvent(e) {
                 isRemoveSelected = false;
             }
         }
+
     } else if (isGameStarted) {
+
         if (x > 1090 && x < 1260 && y > 77 && y < 120) {
+
             playGround.stop();
             isGamePaused = true;
             ctx.drawImage(resumeButton, 300, 50, 800, 600)
+
         } else if (x > 1090 && x < 1260 && y > 132 && y < 174) {
+
             playGround.stop();
             isRestartClicked = true;
             ctx.drawImage(confirmReset, 400, 50, 600, 500)
+
         }
 
     } else if (isGamePaused) {
+
         if (x > 545 && x < 845 && y > 478 && y < 518) {
             startGame();
             isGamePaused = false;
@@ -99,14 +108,23 @@ function clickEvent(e) {
 
         if (x > 1090 && x < 1260 && y > 17 && y < 65) {
             startGame();
+
         } else if (isRestartClicked) {
+
             if (x > 546 && x < 653 && y > 338 && y < 468) {
                 restartGame();
                 startGame();
             } else if (x > 744 && x < 848 && y > 338 && y < 468) {
                 startGame();
             }
+
+        } else if (isGameEnded) {
+
+            if (x > 1090 && x < 1260 && y > 132 && y < 174) {
+                restartGame();
+                startGame();
+            }
+
         }
     }
-
 }

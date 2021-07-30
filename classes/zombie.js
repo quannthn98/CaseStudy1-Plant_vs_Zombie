@@ -101,6 +101,7 @@ class Zombie {
             playGround.stop();
             endgameSound.play();
             ctx.drawImage(gameOverScene, 150, 50, 800, 540)
+            isGameEnded = true;
         }
     }
 
