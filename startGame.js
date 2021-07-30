@@ -1,7 +1,10 @@
 function startGame() {
     if (!isGameStarted) {
 
-        let hienthi = "<table style=\"border-collapse: separate; border: 0px solid darkgrey; height: 150px\">\n" +
+        let hienthi =
+            // "<button onclick=\"playGround.stop()\"> Stop</button>\n" +
+            // "<button onclick=\"restartGame()\">Restart</button>" +
+            "<table style=\"border-collapse: separate; border: 0px solid darkgrey; height: 150px\">\n" +
             "    <tr>\n" +
             "        <td onclick=\"collectSun()\"> <img src=\"img/balance.png\" alt=\"balance\"></td>\n" +
             "        <td id=\"0\" onclick=\"changeSelected(0)\"> <img src=\"img/plantCard.png\" alt=\"plant\"></td>\n" +
@@ -21,16 +24,18 @@ function startGame() {
             "    </tr>\n" +
             "</table>" +
             "<p id=\"score\"> Scores: 0</p>" +
-            "<button onclick=\"playGround.stop()\"> Stop</button>\n" +
-            "<button onclick=\"restartGame()\">Restart</button>" +
+
             "<canvas id=\"canvas\" width=\"1450\" height=\"650\"></canvas>"
 
         document.getElementById('hienthi').innerHTML = hienthi;
+
         canvas = document.getElementById("canvas");
         ctx = canvas.getContext('2d');
-        canvas.addEventListener('click', startGame, false);
+
         document.getElementById("balance").innerText = balance;
+
         ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+
         canvas.addEventListener('click', clickEvent, false)
 
         playGround.start();

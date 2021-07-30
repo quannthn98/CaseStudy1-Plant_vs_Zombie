@@ -4,7 +4,10 @@ let ctx1 = canvas1.getContext('2d')
 let canvas;
 let ctx;
 
+
 let isGameStarted = false;
+let isGamePaused = false;
+let isRestartClicked = false;
 
 let houseLine = 200;
 let balance = 1000;
@@ -19,6 +22,12 @@ let sunFlowerMark = 0;
 
 let myPlayGround = new Image();
 myPlayGround.src = "img/backGround1.jpg"
+
+let pauseButton = new Image();
+pauseButton.src = "img/pause.png"
+
+let resumButton = new Image();
+resumButton.src = "img/resume.png"
 
 let menu = new Image();
 menu.src = "img/menu.png"
@@ -40,8 +49,6 @@ let previousSelected;
 let isPlantSelected = false;
 let isRemoveSelected = false;
 
-
-
 canvas1.addEventListener('click', startGame, false);
 
 let playGround = {
@@ -62,6 +69,7 @@ let playGround = {
 
     drawBackground: function () {
         ctx.drawImage(myPlayGround, 0, 0, this.width, this.height);
+        ctx.drawImage(pauseButton, 1050, 0, 250,180)
     },
 
     clear: function () {
@@ -202,13 +210,13 @@ function removePlants() {
     }
 }
 
-
 function clickEvent(e){
     let x = e.offsetX;
     let y = e.offsetY;
     let id;
     let selectedZone;
-
+    getClickedZone();
+    console.log(x + '/' + y)
     function getClickedZone() {
         for (let i = 0; i < zones.length; i++) {
             if (x > zones[i].x && x < zones[i].x + zones[i].width && y > zones[i].y && y < zones[i].y + zones[i].height) {
@@ -220,9 +228,7 @@ function clickEvent(e){
         }
     }
 
-    getClickedZone();
     if (isPlantSelected) {
-
         if (selectedZone.available === true) {
             switch (selected) {
 
@@ -267,6 +273,7 @@ function clickEvent(e){
                         currentCooldownCherry = cooldownCherryMax;
                     }
                     break;
+
             }
             plantSound.play();
             isPlantSelected = false;
@@ -281,6 +288,23 @@ function clickEvent(e){
                 }
                 isRemoveSelected = false;
             }
+        }
+    } else if (isGameStarted){
+        if (x > 1090 && x < 1260 && y > 77 && y < 120) {
+            playGround.stop();
+            isGamePaused = true;
+            ctx.drawImage(resumButton,300,50,800,600)
+        } else if (x > 1090 && x < 1260 && y > 132 && y < 174){
+            restartGame();
+        }
+    } else if (isGamePaused) {
+        if (x > 545 && x < 845 && y > 478 && y < 518){
+            startGame();
+            isGamePaused = false;
+        }
+    } else if (!isGameStarted) {
+        if (x > 1090 && x < 1260 && y > 17 && y < 65){
+            startGame();
         }
     }
 
@@ -301,7 +325,7 @@ function newZombies() {
         zombies.push(new Zombie(lines[number].y, 3));
     }
 
-    if (scores % 2 === 0 && scores !== 0) {
+    if (scores % 23 === 0 && scores !== 0) {
         hugeWave.play()
         for (let i = 0; i < 15; i++) {
             number = Math.floor(Math.random() * 5);
