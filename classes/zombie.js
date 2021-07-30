@@ -1,3 +1,11 @@
+let zombie = new Image();
+let zombie2 = new Image();
+let zombie3 = new Image();
+zombie.src = "img/zom.png"
+zombie2.src = "img/zom2.png"
+zombie3.src = "img/zom3.png"
+
+
 class Zombie {
     x;
     y;
@@ -11,22 +19,26 @@ class Zombie {
     constructor(y, level) {
         this.x = 1100;
         this.y = y;
-        this.width = 58;
-        this.height = 80;
         switch (level) {
             case 1:
                 this.maxSpeed = 1
+                this.width = 58;
+                this.height = 80
                 this.img = zombie;
                 this.hp = 8
                 break;
             case 2:
                 this.maxSpeed = 1.15;
                 this.img = zombie2;
+                this.width = 65;
+                this.height = 90;
                 this.hp = 15;
                 break;
             case 3:
                 this.maxSpeed = 1.4;
                 this.img = zombie3;
+                this.width = 90;
+                this.height = 100;
                 this.hp = 25;
                 break;
         }
@@ -94,11 +106,5 @@ class Zombie {
 
 }
 
-let zombie = new Image();
-let zombie2 = new Image();
-let zombie3 = new Image();
-let zombie4 = new Image();
-zombie.src = "img/zom.png"
-zombie2.src = "img/zom1.png"
-zombie3.src = "img/zom2.png"
-zombie4.src = "img/zom3.png"
+
+

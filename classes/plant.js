@@ -1,3 +1,6 @@
+let plant1 = new Image();
+plant1.src = "img/plant1.png"
+
 class Plant {
     width;
     height;
@@ -60,7 +63,3 @@ class Plant {
 
 }
 
-let plant1 = new Image();
-let plant2 = new Image();
-plant1.src = "img/plant1.png"
-plant2.src = "img/plant2.1.png"

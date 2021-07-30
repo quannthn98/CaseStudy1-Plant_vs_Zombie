@@ -1,3 +1,8 @@
+let sunFlower = new Image();
+sunFlower.src = "img/sunflower.png";
+let sun = new Image();
+sun.src = "img/sun.png"
+
 class SunFlower {
     x;
     y;
@@ -75,7 +80,3 @@ class Sun {
 
 }
 
-let sunFlower = new Image();
-sunFlower.src = "img/sunflower.png";
-let sun = new Image();
-sun.src = "img/sun.png"

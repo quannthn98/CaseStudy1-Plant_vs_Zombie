@@ -1,3 +1,8 @@
+let cherry = new Image();
+cherry.src = "img/cherryBomb.png"
+let cherryExplode = new Image();
+cherryExplode.src = "img/cherryExplode.png"
+
 class CherryBomb {
     x;
     y;
@@ -83,8 +88,3 @@ class CherryBombArea {
     }
 }
 
-let cherry = new Image();
-cherry.src = "img/cherryBomb.png"
-
-let cherryExplode = new Image();
-cherryExplode.src = "img/cherryExplode.png"

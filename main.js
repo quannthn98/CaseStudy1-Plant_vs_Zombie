@@ -42,9 +42,10 @@ let plants = [];
 let sunFlowers = [];
 let walls = [];
 let cherries = [];
-let bullets = [];
 
 let defenders = [plants, sunFlowers, walls]
+
+let bullets = [];
 
 let zombies = [];
 

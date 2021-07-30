@@ -13,7 +13,7 @@ function generateSun() {
     }
 }
 
-//Random Sun
+//Make random Sun -- setInerval
 function randomSun() {
     let randomX = Math.floor(Math.random() * 850 + 200);
     randomMoney.push(new Sun(randomX, 0, -1));
