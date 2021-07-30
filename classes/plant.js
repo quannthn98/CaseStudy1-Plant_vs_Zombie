@@ -7,7 +7,6 @@ class Plant {
     x;
     y;
     cost;
-    level;
     hp;
     zoneId;
     shootCount;
@@ -44,15 +43,11 @@ class Plant {
     }
 
     detectZombies() {
-        let canShoot = false;
         for (let i = 0; i < zombies.length; i++) {
             if (zombies[i].y == this.y) {
-                canShoot = true;
+                this.shoot();
+                break;
             }
-        }
-
-        if (canShoot) {
-            this.shoot();
         }
     }
 

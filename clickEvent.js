@@ -7,18 +7,24 @@ function clickEvent(e) {
     console.log(x + '/' + y)
 
     function getClickedZone() {
+
         for (let i = 0; i < zones.length; i++) {
+
             if (x > zones[i].x && x < zones[i].x + zones[i].width && y > zones[i].y && y < zones[i].y + zones[i].height) {
                 selectedZone = zones[i];
                 id = i;
                 console.log(selectedZone.x + ',' + selectedZone.y + ',' + selectedZone.available);
                 break;
             }
+
         }
+        
     }
 
     if (isPlantSelected) {
+
         if (selectedZone.available === true) {
+
             switch (selected) {
 
                 case 0:

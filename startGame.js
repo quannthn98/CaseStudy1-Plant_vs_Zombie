@@ -65,6 +65,6 @@ function restartGame() {
     updateGame();
 }
 
-function drawMenu() {
+function drawOpeningTheme() {
     ctx1.drawImage(menu, 0, 0, canvas1.width, canvas1.height);
 }

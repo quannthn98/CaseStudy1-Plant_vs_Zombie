@@ -13,7 +13,7 @@ function newZombies() {
         zombies.push(new Zombie(lines[number].y, 3));
     }
 
-    if (scores % 2 === 0 && scores !== 0) {
+    if (scores % 23 === 0 && scores !== 0) {
         hugeWave.play()
         for (let i = 0; i < 15; i++) {
             number = Math.floor(Math.random() * 5);
