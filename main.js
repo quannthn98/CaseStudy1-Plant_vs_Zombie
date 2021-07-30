@@ -4,19 +4,19 @@ let ctx1 = canvas1.getContext('2d')
 let canvas;
 let ctx;
 
-
 let isGameStarted = false;
 let isGamePaused = false;
 let isRestartClicked = false;
 
 let houseLine = 200;
-let balance = 1000;
+let balance = 100;
 let scores = 0;
 
 let spawnZombie = 8000;
 let scoreMark = 0;
 
 let spawnSun = 3000;
+let sunSpeed = 11
 let numberSunGen = 1;
 let sunFlowerMark = 0;
 
@@ -29,6 +29,9 @@ pauseButton.src = "img/pause.png"
 let resumButton = new Image();
 resumButton.src = "img/resume.png"
 
+let confirmReset = new Image();
+confirmReset.src = "img/confirmReset.png"
+
 let menu = new Image();
 menu.src = "img/menu.png"
 
@@ -36,11 +39,12 @@ let plants = [];
 let sunFlowers = [];
 let walls = [];
 let cherries = [];
+let bullets = [];
 
 let defenders = [plants, sunFlowers, walls]
 
 let zombies = [];
-let bullets = [];
+
 let money = [];
 let randomMoney = [];
 
@@ -139,18 +143,6 @@ function updateGame() {
         }
     }
 
-    // for (let i = 0; i < randomMoney.length; i++) {
-    //     randomMoney[i].x -= randomMoney[i].xSpeed;
-    //     randomMoney[i].y -= randomMoney[i].ySpeed;
-    //     if (randomMoney[i].y > 530) {
-    //         randomMoney[i].y = 530;
-    //     }
-    //     if (randomMoney[i].y < 0){
-    //         randomMoney.splice(i,1);
-    //         balance += 25
-    //     }
-    //     randomMoney[i].update();
-    // }
     for (let i = 0; i < randomMoney.length; i++) {
         randomMoney[i].x -= randomMoney[i].xSpeed;
         randomMoney[i].y -= randomMoney[i].ySpeed;
@@ -173,7 +165,6 @@ function updateBalance() {
 function updateScore() {
     document.getElementById("score").innerText = "Scores: " + scores;
 }
-
 
 //Place Defenders
 function changeSelected(id) {
@@ -207,195 +198,6 @@ function removePlants() {
     } else {
         isRemoveSelected = true;
         isPlantSelected = false;
-    }
-}
-
-function clickEvent(e){
-    let x = e.offsetX;
-    let y = e.offsetY;
-    let id;
-    let selectedZone;
-    getClickedZone();
-    console.log(x + '/' + y)
-    function getClickedZone() {
-        for (let i = 0; i < zones.length; i++) {
-            if (x > zones[i].x && x < zones[i].x + zones[i].width && y > zones[i].y && y < zones[i].y + zones[i].height) {
-                selectedZone = zones[i];
-                id = i;
-                console.log(selectedZone.x + ',' + selectedZone.y + ',' + selectedZone.available);
-                break;
-            }
-        }
-    }
-
-    if (isPlantSelected) {
-        if (selectedZone.available === true) {
-            switch (selected) {
-
-                case 0:
-                    if (balance >= 100 && !isCooldownShooter) {
-                        plants.push(new Plant(selectedZone, id));
-                        balance -= 100;
-                        selectedZone.available = false;
-                        isCooldownShooter = true;
-                        currentCooldownShooter = cooldownShooterMax;
-                    }
-                    break;
-
-                case 1:
-                    if (balance >= 50 && !isCooldownSunFlower) {
-                        sunFlowers.push(new SunFlower(selectedZone, id));
-                        balance -= 50;
-                        spawnSun += 150;
-                        sunFlowerMark++;
-                        selectedZone.available = false;
-                        isCooldownSunFlower = true;
-                        currentCooldownSunFlower = cooldownSunFlowerMax;
-                    }
-                    break;
-
-                case 2:
-                    if (balance >= 50 && !isCooldownWall) {
-                        walls.push(new Wall(selectedZone, id));
-                        balance -= 50;
-                        selectedZone.available = false;
-                        isCooldownWall = true;
-                        currentCooldownWall = cooldownWallMax;
-                    }
-                    break;
-
-                case 3:
-                    if (balance >= 150 && !isCooldownCherry) {
-                        cherries.push(new CherryBomb(selectedZone, id));
-                        balance -= 50;
-                        selectedZone.available = false;
-                        isCooldownCherry = true;
-                        currentCooldownCherry = cooldownCherryMax;
-                    }
-                    break;
-
-            }
-            plantSound.play();
-            isPlantSelected = false;
-            unHighlightSelected(selected);
-        }
-    } else if (isRemoveSelected) {
-        for (let j = 0; j < defenders.length; j++) {
-            for (let k = 0; k < defenders[j].length; k++) {
-                if (defenders[j][k].zoneId === id) {
-                    defenders[j][k].remove(k);
-                    removeSound.play();
-                }
-                isRemoveSelected = false;
-            }
-        }
-    } else if (isGameStarted){
-        if (x > 1090 && x < 1260 && y > 77 && y < 120) {
-            playGround.stop();
-            isGamePaused = true;
-            ctx.drawImage(resumButton,300,50,800,600)
-        } else if (x > 1090 && x < 1260 && y > 132 && y < 174){
-            restartGame();
-        }
-    } else if (isGamePaused) {
-        if (x > 545 && x < 845 && y > 478 && y < 518){
-            startGame();
-            isGamePaused = false;
-        }
-    } else if (!isGameStarted) {
-        if (x > 1090 && x < 1260 && y > 17 && y < 65){
-            startGame();
-        }
-    }
-
-}
-
-//Add new zombies at random Lines
-function newZombies() {
-    let number = Math.floor(Math.random() * 5)
-    zombies.push(new Zombie(lines[number].y, 1));
-
-    if (scores % 5 === 0 && scores !== 0) {
-        number = Math.floor(Math.random() * 5);
-        zombies.push(new Zombie(lines[number].y, 2));
-    }
-
-    if (scores % 11 === 0 && scores !== 0) {
-        number = Math.floor(Math.random() * 5);
-        zombies.push(new Zombie(lines[number].y, 3));
-    }
-
-    if (scores % 23 === 0 && scores !== 0) {
-        hugeWave.play()
-        for (let i = 0; i < 15; i++) {
-            number = Math.floor(Math.random() * 5);
-            let level = Math.floor(Math.random() * 3 + 1);
-            zombies.push(new Zombie(lines[number].y, level));
-        }
-    }
-    newZomSound.play();
-}
-
-//Let Zombies Attack plants
-function zombieAttack() {
-    for (let i = 0; i < zombies.length; i++) {
-        zombies[i].detectObject();
-    }
-}
-
-// Find zombies and attack
-function detectZombies() {
-    for (let i = 0; i < plants.length; i++) {
-        plants[i].detectZombies();
-    }
-}
-
-// Check if Zombies het Hits by bullets
-function checkZombiesHits() {
-    for (let i = 0; i < zombies.length; i++) {
-        for (let j = 0; j < bullets.length; j++) {
-            if (zombies[i].y == bullets[j].y && bullets[j].x > zombies[i].x) {
-                bullets[j].destroy(j);
-                zombies[i].getShot();
-                hitZombieSound.play();
-                console.log('hp of zombie ' + i + ' is: ' + zombies[i].hp)
-                zombies[i].checkStatus(i);
-            }
-        }
-    }
-}
-
-//SunFlowers function
-function generateSun() {
-    if (sunFlowerMark > 3){
-        numberSunGen++;
-        sunFlowerMark = 0;
-    }
-    if (sunFlowers.length > 0) {
-        for (let i = 0; i < numberSunGen; i++) {
-            let number = Math.floor(Math.random() * sunFlowers.length)
-            sunFlowers[number].generateSun();
-        }
-
-    }
-}
-
-//Random Sun
-function randomSun() {
-    let randomX = Math.floor(Math.random() * 850 + 200);
-    randomMoney.push(new Sun(randomX, 0, -1));
-}
-
-function collectSun(){
-    for (let i = 0; i < money.length; i++) {
-        let ratio = money[i].y/(money[i].x - 135);
-        money[i].xSpeed = 9;
-        money[i].ySpeed = (money[i].xSpeed)*ratio;
-    }
-    for (let i = 0; i < randomMoney.length; i++) {
-        let ratio = randomMoney[i].y/(randomMoney[i].x - 135);
-        randomMoney[i].xSpeed = 9;
-        randomMoney[i].ySpeed = (randomMoney[i].xSpeed)*ratio;
     }
 }
 

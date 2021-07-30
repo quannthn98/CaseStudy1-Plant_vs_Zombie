@@ -65,7 +65,7 @@ class Sun {
         this.ySpeed = ySpeed;
     }
 
-    update() {
+    update(id) {
         if (this.y > 622) {
             this.y = 622;
         }
