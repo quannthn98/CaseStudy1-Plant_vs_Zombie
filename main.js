@@ -26,11 +26,14 @@ myPlayGround.src = "img/backGround1.jpg"
 let pauseButton = new Image();
 pauseButton.src = "img/pause.png"
 
-let resumButton = new Image();
-resumButton.src = "img/resume.png"
+let resumeButton = new Image();
+resumeButton.src = "img/resume.png"
 
 let confirmReset = new Image();
 confirmReset.src = "img/confirmReset.png"
+
+let gameOverScene = new Image();
+gameOverScene.src = "img/gameover.png"
 
 let menu = new Image();
 menu.src = "img/menu.png"
@@ -93,75 +96,39 @@ let playGround = {
     }
 }
 
+//Update game - Update current status of every objects on playGround.
 function updateGame() {
 
     playGround.clear();
     playGround.drawBackground();
+
     updateBalance();
     updateScore();
+
     checkZombiesHits();
-
-    if (scoreMark > 4) {
-        scoreMark = 0;
-        spawnZombie -= 600;
-        if (spawnZombie < 2000) {
-            spawnZombie = 2000;
-        }
-    }
-
-    if(spawnSun > 5500){
-        spawnSun = 5500;
-    }
-    for (let i = 0; i < bullets.length; i++) {
-        bullets[i].x += bullets[i].speed;
-        bullets[i].update();
-    }
-
-    for (let i = 0; i < cherries.length; i++) {
-        cherries[i].update();
-    }
-
-    for (let i = 0; i < zombies.length; i++) {
-        zombies[i].x -= zombies[i].speed;
-        zombies[i].update();
-        zombies[i].checkIfInHouse();
-    }
-
-    for (let i = 0; i < defenders.length; i++) {
-        for (let j = 0; j < defenders[i].length; j++) {
-            defenders[i][j].update();
-        }
-    }
-
-    for (let i = 0; i < money.length; i++) {
-        money[i].x -= money[i].xSpeed;
-        money[i].y -= money[i].ySpeed
-        money[i].update();
-        if (money[i].y < 0){
-            money.splice(i,1);
-            balance += 25
-        }
-    }
-
-    for (let i = 0; i < randomMoney.length; i++) {
-        randomMoney[i].x -= randomMoney[i].xSpeed;
-        randomMoney[i].y -= randomMoney[i].ySpeed;
-        if (randomMoney[i].y < 0){
-            randomMoney.splice(i,1);
-            balance += 25;
-        }
-        if (randomMoney[i].y > 622){
-            randomMoney[i].y = 622;
-        }
-        randomMoney[i].update();
-    }
-
+    increaseGameLevel();
+    updateBullets();
+    updateCherries();
+    updateDefenders();
+    updateZombies();
+    updateGeneratedSun();
+    updateRandomSun();
 }
 
+//Decrease Cooldown
+function reduceCooldown() {
+    updateCooldownShooter();
+    updateCooldownSunFlower();
+    updateCooldownWall();
+    updateCooldownCherry();
+}
+
+//Update current balance
 function updateBalance() {
     document.getElementById("balance").innerText = balance;
 }
 
+//Update current scores
 function updateScore() {
     document.getElementById("score").innerText = "Scores: " + scores;
 }
@@ -170,12 +137,16 @@ function updateScore() {
 function changeSelected(id) {
     selected = id;
     if (isPlantSelected && id === previousSelected) {
+
         isPlantSelected = false;
         unHighlightSelected(id)
-    } else if (isPlantSelected === false || isPlantSelected === true && id !== previousSelected && previousSelected >= 0) {
+
+    } else if (isPlantSelected === false || isPlantSelected === true && id !== previousSelected ) {
+
         isPlantSelected = true;
         isRemoveSelected = false;
-        highlightSelected(id)
+        highlightSelected(id);
+
         if (previousSelected >= 0) {
             unHighlightSelected(previousSelected);
         }
@@ -183,10 +154,12 @@ function changeSelected(id) {
     previousSelected = id;
 }
 
+//Highlight Selected plants
 function highlightSelected(id) {
     document.getElementById(id + '').style.border = "dashed #356397E8";
 }
 
+//UnHighlight Selected plants
 function unHighlightSelected(id) {
     document.getElementById(id + '').style.border = "0px";
 }

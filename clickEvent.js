@@ -35,7 +35,7 @@ function clickEvent(e) {
                     if (balance >= 50 && !isCooldownSunFlower) {
                         sunFlowers.push(new SunFlower(selectedZone, id));
                         balance -= 50;
-                        spawnSun += 150;
+                        spawnSun += 250;
                         sunFlowerMark++;
                         selectedZone.available = false;
                         isCooldownSunFlower = true;
@@ -82,7 +82,7 @@ function clickEvent(e) {
         if (x > 1090 && x < 1260 && y > 77 && y < 120) {
             playGround.stop();
             isGamePaused = true;
-            ctx.drawImage(resumButton, 300, 50, 800, 600)
+            ctx.drawImage(resumeButton, 300, 50, 800, 600)
         } else if (x > 1090 && x < 1260 && y > 132 && y < 174) {
             playGround.stop();
             isRestartClicked = true;

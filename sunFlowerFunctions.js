@@ -1,6 +1,6 @@
 //SunFlowers function
 function generateSun() {
-    if (sunFlowerMark > 3){
+    if (sunFlowerMark > 5){
         numberSunGen++;
         sunFlowerMark = 0;
     }

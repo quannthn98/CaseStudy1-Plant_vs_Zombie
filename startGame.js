@@ -49,6 +49,7 @@ function restartGame() {
     plants = [];
     sunFlowers = [];
     walls = [];
+    cherries = [];
     defenders = [plants, sunFlowers, walls]
     for (let i = 0; i < zones.length; i++) {
         zones[i].available = true;
@@ -60,7 +61,7 @@ function restartGame() {
     isPlantSelected = false;
     isRemoveSelected = false;
     balance = 100;
-    restartCooldown();
+    resetCooldown();
     updateGame();
 }
 

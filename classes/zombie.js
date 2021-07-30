@@ -86,12 +86,9 @@ class Zombie {
 
     checkIfInHouse() {
         if (this.x < houseLine) {
-            if (!alert('Your brain are gone. Game over')) {
-                playGround.stop();
-                endgameSound.play();
-                //  endgameSound();
-            }
-
+            playGround.stop();
+            endgameSound.play();
+            ctx.drawImage(gameOverScene, 150, 50, 800, 540)
         }
     }
 
