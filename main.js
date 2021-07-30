@@ -15,6 +15,7 @@ let scores = 0;
 
 let spawnZombie = 8000;
 let scoreMark = 0;
+let isHugeWave = false;
 
 let spawnSun = 3000;
 let sunSpeed = 11
@@ -74,6 +75,7 @@ let playGround = {
         this.intervalOfZombiesAttack = setInterval(zombieAttack, 1000); //Let zombies check and attack every 0.5s
         this.intevalOfCherries = setInterval(checkCherries, 1000)//Check cherries for explode every 1s
         this.intevalOfCooldown = setInterval(reduceCooldown, 1000);//Reduce cooldown every 1s
+        this.intervalOfHugewave = setInterval(checkHugeWave, 2000) ;
     },
 
     drawBackground: function () {
@@ -94,6 +96,7 @@ let playGround = {
         clearInterval(this.itervalOfRandomSun);
         clearInterval(this.intevalOfCherries);
         clearInterval(this.intevalOfCooldown);
+        clearInterval(this.intervalOfHugewave);
         isGameStarted = false;
     }
 }

@@ -1,4 +1,4 @@
-//SunFlowers function
+//Generate sun from planted SunFlowers
 function generateSun() {
     if (sunFlowerMark > 5){
         numberSunGen++;
@@ -13,12 +13,13 @@ function generateSun() {
     }
 }
 
-//Make random Sun -- setInerval
+//Make random Sun
 function randomSun() {
     let randomX = Math.floor(Math.random() * 850 + 200);
     randomMoney.push(new Sun(randomX, 0, -1));
 }
 
+//Collect all the Suns in the playGround
 function collectSun(){
     for (let i = 0; i < money.length; i++) {
         let ratio = money[i].y/(money[i].x - 135);

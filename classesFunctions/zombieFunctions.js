@@ -13,17 +13,29 @@ function newZombies() {
         zombies.push(new Zombie(lines[number].y, 3));
     }
 
+    newZomSound.play();
+}
+
+//
+function checkHugeWave(){
     if (scores % 23 === 0 && scores !== 0) {
+        isHugeWave = true;
+    }
+    createHugeWave();
+}
+
+function createHugeWave(){
+    if(isHugeWave) {
         hugeWave.play()
         for (let i = 0; i < 15; i++) {
             number = Math.floor(Math.random() * 5);
             let level = Math.floor(Math.random() * 3 + 1);
             zombies.push(new Zombie(lines[number].y, level));
         }
+    isHugeWave = false;
     }
-    newZomSound.play();
-}
 
+}
 //Let Zombies Attack plants
 function zombieAttack() {
     for (let i = 0; i < zombies.length; i++) {
